@@ -1,3 +1,6 @@
+# to do: add eror handling
+
+
 #!/usr/bin/env python3
 # app.py
 
@@ -103,7 +106,7 @@ class ToyByID(Resource):
 
     def get(self, id):
 
-        response_dict = User.query.filter_by(id=id).first().to_dict()
+        response_dict = Toy.query.filter_by(id=id).first().to_dict()
 
         response = make_response(
             response_dict,

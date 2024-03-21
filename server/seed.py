@@ -21,6 +21,7 @@ if __name__ == '__main__':
         User.query.delete()
         Toy.query.delete()
         AgeRange.query.delete()
+        Review.query.delete()
     
         print("Starting seed...")
         # Seed code goes here!
@@ -48,7 +49,7 @@ if __name__ == '__main__':
                 brand = fake.company(),
                 description = fake.paragraph(),
                 link = "https://lovevery.com/products/the-play-kits-the-looker",
-                user_id = fake.num([])
+                user_id = fake.random_int(min=1, max=5)
             )
 
             db.session.add(toy) 
@@ -114,7 +115,9 @@ if __name__ == '__main__':
 
             review = Review(
                 title = fake.word(),
-                text = fake.sentence()
+                text = fake.sentence(),
+                toy_id = fake.random_int(min=1, max=5),
+                user_id = fake.random_int(min=1, max=5)
             )
 
             db.session.add(review) 

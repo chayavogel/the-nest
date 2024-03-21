@@ -1,3 +1,5 @@
+# to do: add many to many, add relationships, add serialization, add constraints
+
 # models.py
 
 from sqlalchemy_serializer import SerializerMixin
@@ -19,8 +21,6 @@ class User(db.Model, SerializerMixin):
 
     # Relationships
     ## user < toys
-    toys = db.relationship('Toy', back_populates="user", cascade='all, delete-orphan')
-
     # Serialize Rules
 
 class Toy(db.Model, SerializerMixin):
@@ -39,7 +39,6 @@ class Toy(db.Model, SerializerMixin):
     ## toy > user
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     ## toy < review
-    reviews = db.relationship('Review', back_populates="toy", cascade='all, delete-orphan')
     ## toys >< age ranges
 
     # Serialize Rules
