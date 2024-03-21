@@ -31,6 +31,7 @@ if __name__ == '__main__':
 
             user = User(
                 name = fake.name(),
+                profile_photo = "https://a.storyblok.com/f/191576/1200x800/215e59568f/round_profil_picture_after_.webp",
                 bio = fake.paragraph(),
                 country = fake.country()
             )
