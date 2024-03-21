@@ -1,5 +1,3 @@
-# to do: add many to many, add relationships, add serialization, add constraints
-
 # models.py
 
 from flask_sqlalchemy import SQLAlchemy
@@ -37,9 +35,11 @@ class User(db.Model, SerializerMixin):
     country = db.Column(db.String)
 
     # Relationships
-    ## user < toys
+    toys = db.relationship('Toy', back_populates='user', cascade='all, delete-orphan')
 
     # Serialize Rules
+
+    # Constraints
 
 class Toy(db.Model, SerializerMixin):
     __tablename__ = 'toys'
@@ -54,14 +54,15 @@ class Toy(db.Model, SerializerMixin):
     link = db.Column(db.String)
 
     # Relationships
-    ## toy > user
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     ## toy < review
-    ## toys >< age ranges
+    reviews = db.relationship('Review', back_populates='toy', cascade='all, delete-orphan')
     age_ranges = db.relationship('AgeRange', secondary=toys_age_ranges, back_populates='toys')
 
     # Serialize Rules
     # error here
+
+    # Constraints
 
 class AgeRange(db.Model, SerializerMixin):
     __tablename__ = 'age_ranges'
@@ -71,7 +72,6 @@ class AgeRange(db.Model, SerializerMixin):
     age = db.Column(db.String)
 
     # Relationships
-    ## age ranges >< toys
     toys = db.relationship(
         'Toy', secondary=toys_age_ranges, back_populates='age_ranges')
 
@@ -86,10 +86,10 @@ class Review(db.Model, SerializerMixin):
     text = db.Column(db.String)
 
     # Relationships
-    ## review > toy
     toy_id = db.Column(db.Integer, db.ForeignKey('toys.id'))
-    ## review > user
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
 
     # Serialize Rules
+
+    # Constraints
 
