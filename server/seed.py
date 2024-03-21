@@ -19,6 +19,8 @@ if __name__ == '__main__':
         print("Clearing existing seed data...")
         # Delete all existing user records
         User.query.delete()
+        Toy.query.delete()
+        AgeRange.query.delete()
     
         print("Starting seed...")
         # Seed code goes here!
@@ -49,9 +51,55 @@ if __name__ == '__main__':
 
         # age_ranges
 
-        for _ in range(5):
-            age_range = AgeRange(
-                age = fake.word(),
-            )
-            db.session.add(age_range) 
-            db.session.commit() 
+        zero_three_months = AgeRange(
+            age = "0-3 months"
+        )
+
+        three_six_months = AgeRange(
+            age = "3-6 months"
+        )
+
+        six_nine_months = AgeRange(
+            age = "6-9 months"
+        )
+
+        nine_twelve_months = AgeRange(
+            age = "9-12 months"
+        )
+
+        twelve_eighteen_months = AgeRange(
+            age = "12-18 months"
+        )
+
+        eighteen_twentyfour_months = AgeRange(
+            age = "18-24 months"
+        )
+
+        two_three_years = AgeRange(
+            age = "2-3 years"
+        )
+
+        three_five_years = AgeRange(
+            age = "3-5 years"
+        )
+
+        six_eight_years = AgeRange(
+            age = "6-8 years"
+        )
+
+        nine_twelve_years = AgeRange(
+            age = "9-12 years"
+        )
+
+        db.session.add(zero_three_months)
+        db.session.add(three_six_months)
+        db.session.add(six_nine_months)
+        db.session.add(nine_twelve_months)
+        db.session.add(twelve_eighteen_months)
+        db.session.add(eighteen_twentyfour_months)
+        db.session.add(two_three_years)
+        db.session.add(three_five_years)
+        db.session.add(six_eight_years)
+        db.session.add(nine_twelve_years)
+
+        db.session.commit()
