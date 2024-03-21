@@ -17,7 +17,8 @@ class User(db.Model, SerializerMixin):
     country = db.Column(db.String)
 
     # Relationships
-    # toys they posted
+    ## user < toys
+    toys = db.relationship('Toy', back_populates="user", cascade='all, delete-orphan')
 
     # Serialize Rules
 
@@ -34,7 +35,11 @@ class Toy(db.Model, SerializerMixin):
     link = db.Column(db.String)
 
     # Relationships
-    # who posted it, reviews, age range
+    ## toy > user
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    ## toy < review
+    reviews = db.relationship('Review', back_populates="toy", cascade='all, delete-orphan')
+    ## toys >< age ranges
 
     # Serialize Rules
 
@@ -46,6 +51,7 @@ class AgeRange(db.Model, SerializerMixin):
     age = db.Column(db.String)
 
     # Relationships
+    ## age ranges >< toys
 
     # Serialize Rules
 
@@ -58,5 +64,9 @@ class Review(db.Model, SerializerMixin):
     text = db.Column(db.String)
 
     # Relationships
+    ## review > toy
+    toy_id = db.Column(db.Integer, db.ForeignKey('toys.id'))
+    ## review > user
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
 
     # Serialize Rules
