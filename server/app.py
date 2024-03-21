@@ -23,7 +23,7 @@ class Home(Resource):
     def get(self):
 
         response_dict = {
-            "message": "Welcome to the Newsletter RESTful API",
+            "message": "Welcome to the nest",
         }
 
         response = make_response(

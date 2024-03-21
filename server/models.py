@@ -19,7 +19,7 @@ from config import db
 
 toys_age_ranges = db.Table(
     'toys_age_ranges',
-    metadata,
+    db.metadata,
     db.Column('toy_id', db.Integer, db.ForeignKey(
         'toys.id'), primary_key=True),
     db.Column('age_range_id', db.Integer, db.ForeignKey(
@@ -38,6 +38,7 @@ class User(db.Model, SerializerMixin):
 
     # Relationships
     ## user < toys
+
     # Serialize Rules
 
 class Toy(db.Model, SerializerMixin):
@@ -60,6 +61,7 @@ class Toy(db.Model, SerializerMixin):
     age_ranges = db.relationship('AgeRange', secondary=toys_age_ranges, back_populates='toys')
 
     # Serialize Rules
+    # error here
 
 class AgeRange(db.Model, SerializerMixin):
     __tablename__ = 'age_ranges'
@@ -90,3 +92,4 @@ class Review(db.Model, SerializerMixin):
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
 
     # Serialize Rules
+

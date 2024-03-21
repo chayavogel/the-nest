@@ -10,7 +10,7 @@ from faker import Faker
 # Local imports
 from app import app
 from models import db
-from models import User, Toy, AgeRange, Review
+from models import User, Toy, AgeRange, Review, toys_age_ranges
 
 if __name__ == '__main__':
     fake = Faker()
@@ -22,6 +22,7 @@ if __name__ == '__main__':
         Toy.query.delete()
         AgeRange.query.delete()
         Review.query.delete()
+        toys_age_ranges.delete()
     
         print("Starting seed...")
         # Seed code goes here!
@@ -40,6 +41,8 @@ if __name__ == '__main__':
             db.session.commit() 
 
         # toys
+            
+        toys = []
 
         for _ in range(5):
 
@@ -53,7 +56,8 @@ if __name__ == '__main__':
             )
 
             db.session.add(toy) 
-            db.session.commit() 
+
+            toys.append(toy)
 
         # age_ranges
 
@@ -107,6 +111,15 @@ if __name__ == '__main__':
         db.session.add(three_five_years)
         db.session.add(six_eight_years)
         db.session.add(nine_twelve_years)
+
+        age_ranges = [zero_three_months, three_six_months, six_nine_months, nine_twelve_months, twelve_eighteen_months, eighteen_twentyfour_months, two_three_years, three_five_years, six_eight_years, nine_twelve_years]
+
+        for toy in toys: 
+
+            toy.age_ranges.append(three_five_years)
+            toy.age_ranges.append(six_eight_years)
+            toy.age_ranges.append(nine_twelve_years)
+
         db.session.commit()
 
         # reviews
