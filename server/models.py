@@ -2,12 +2,29 @@
 
 # models.py
 
+from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy_serializer import SerializerMixin
 from sqlalchemy.ext.associationproxy import association_proxy
+from sqlalchemy import MetaData
+
+metadata = MetaData(naming_convention={
+    "fk": "fk_%(table_name)s_%(column_0_name)s_%(referred_table_name)s",
+})
+
+db = SQLAlchemy(metadata=metadata)
 
 from config import db
 
 # Models go here!
+
+toys_age_ranges = db.Table(
+    'toys_age_ranges',
+    metadata,
+    db.Column('toy_id', db.Integer, db.ForeignKey(
+        'toys.id'), primary_key=True),
+    db.Column('age_range_id', db.Integer, db.ForeignKey(
+        'age_ranges.id'), primary_key=True)
+)
 
 class User(db.Model, SerializerMixin):
     __tablename__ = 'users'
@@ -15,7 +32,7 @@ class User(db.Model, SerializerMixin):
     # Columns
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String)
-    profile_photo = (db.String)
+    profile_photo = db.Column(db.String)
     bio = db.Column(db.String)
     country = db.Column(db.String)
 
@@ -40,6 +57,7 @@ class Toy(db.Model, SerializerMixin):
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     ## toy < review
     ## toys >< age ranges
+    age_ranges = db.relationship('AgeRange', secondary=toys_age_ranges, back_populates='toys')
 
     # Serialize Rules
 
@@ -52,6 +70,8 @@ class AgeRange(db.Model, SerializerMixin):
 
     # Relationships
     ## age ranges >< toys
+    toys = db.relationship(
+        'Toy', secondary=toys_age_ranges, back_populates='age_ranges')
 
     # Serialize Rules
 
