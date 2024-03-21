@@ -46,9 +46,10 @@ if __name__ == '__main__':
                 image_url = "https://lovevery.com/_next/image/?url=https%3A%2F%2Fimages.ctfassets.net%2F0sea1vycfyqy%2FJwOZpORwCxFJnXNMxS9v8%2F293d4cf0880b3c534f79e7924fd48e76%2FLovevery-VKS-Playkit-TheLooker-ISO-305-NOV2021.png&w=750&q=75",
                 brand = fake.company(),
                 description = fake.paragraph(),
-                link = "https://lovevery.com/products/the-play-kits-the-looker"
+                link = "https://lovevery.com/products/the-play-kits-the-looker",
+                user_id = fake.num([])
             )
-            
+
             db.session.add(toy) 
             db.session.commit() 
 

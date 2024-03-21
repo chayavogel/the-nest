@@ -13,6 +13,7 @@ class User(db.Model, SerializerMixin):
     # Columns
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String)
+    profile_photo = (db.String)
     bio = db.Column(db.String)
     country = db.Column(db.String)
 
