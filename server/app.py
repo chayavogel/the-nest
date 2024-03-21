@@ -10,7 +10,7 @@ from flask_restful import Resource
 # Local imports
 from config import app, db, api
 # Add your model imports
-from models import User, Toy, AgeRange
+from models import User, Toy, AgeRange, Review
 
 
 # Views go here!
@@ -137,6 +137,51 @@ class AgeRangeByID(Resource):
         )
 
         return response
+    
+class Reviews(Resource):
+
+    def get(self):
+
+        response_dict_list = [n.to_dict() for n in Review.query.all()]
+
+        response = make_response(
+            response_dict_list,
+            200,
+        )
+
+        return response
+    
+    def post(self):
+
+        new_record = Review(
+            title=request.form['title'],
+            text=request.form['text']
+        )
+
+        db.session.add(new_record)
+        db.session.commit()
+
+        response_dict = new_record.to_dict()
+
+        response = make_response(
+            response_dict,
+            201,
+        )
+
+        return response
+    
+class ReviewByID(Resource):
+
+    def get(self, id):
+
+        response_dict = Review.query.filter_by(id=id).first().to_dict()
+
+        response = make_response(
+            response_dict,
+            200,
+        )
+
+        return response
 
 api.add_resource(Home, '/')
 api.add_resource(Users, '/users')
@@ -145,6 +190,8 @@ api.add_resource(Toys, '/toys')
 api.add_resource(ToyByID, '/toys/<int:id>')
 api.add_resource(AgeRanges, '/age_ranges')
 api.add_resource(AgeRangeByID, '/age_ranges/<int:id>')
+api.add_resource(Reviews, '/reviews')
+api.add_resource(ReviewByID, '/reviews/<int:id>')
 
 if __name__ == '__main__':
     app.run(port=5555, debug=True)

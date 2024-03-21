@@ -10,7 +10,7 @@ from faker import Faker
 # Local imports
 from app import app
 from models import db
-from models import User, Toy, AgeRange
+from models import User, Toy, AgeRange, Review
 
 if __name__ == '__main__':
     fake = Faker()
@@ -28,6 +28,7 @@ if __name__ == '__main__':
         # users
 
         for _ in range(5):
+
             user = User(
                 name = fake.name(),
                 bio = fake.paragraph(),
@@ -39,6 +40,7 @@ if __name__ == '__main__':
         # toys
 
         for _ in range(5):
+
             toy = Toy(
                 name = fake.word(ext_word_list=['ball', 'doll', 'car', 'blocks']),
                 image_url = "https://lovevery.com/_next/image/?url=https%3A%2F%2Fimages.ctfassets.net%2F0sea1vycfyqy%2FJwOZpORwCxFJnXNMxS9v8%2F293d4cf0880b3c534f79e7924fd48e76%2FLovevery-VKS-Playkit-TheLooker-ISO-305-NOV2021.png&w=750&q=75",
@@ -46,6 +48,7 @@ if __name__ == '__main__':
                 description = fake.paragraph(),
                 link = "https://lovevery.com/products/the-play-kits-the-looker"
             )
+            
             db.session.add(toy) 
             db.session.commit() 
 
@@ -101,5 +104,16 @@ if __name__ == '__main__':
         db.session.add(three_five_years)
         db.session.add(six_eight_years)
         db.session.add(nine_twelve_years)
-
         db.session.commit()
+
+        # reviews
+
+        for _ in range(5):
+
+            review = Review(
+                title = fake.word(),
+                text = fake.sentence()
+            )
+
+            db.session.add(review) 
+            db.session.commit() 

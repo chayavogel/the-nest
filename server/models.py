@@ -49,10 +49,13 @@ class AgeRange(db.Model, SerializerMixin):
 
     # Serialize Rules
 
-# class Review(db.Model, SerializerMixin):
-#     __tablename__ = 'reviews'
+class Review(db.Model, SerializerMixin):
+    __tablename__ = 'reviews'
 
     # Columns
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String)
+    text = db.Column(db.String)
 
     # Relationships
 
