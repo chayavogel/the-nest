@@ -1,6 +1,3 @@
-# to do: add eror handling
-
-
 #!/usr/bin/env python3
 # app.py
 

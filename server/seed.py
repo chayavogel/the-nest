@@ -18,48 +18,114 @@ if __name__ == '__main__':
 
         print("Clearing existing seed data...")
         # Delete all existing user records
+        db.session.query(toys_age_ranges).delete()
+        db.session.commit()
         User.query.delete()
         Toy.query.delete()
         AgeRange.query.delete()
         Review.query.delete()
-        toys_age_ranges.delete()
     
         print("Starting seed...")
-        # Seed code goes here!
 
-        # users
+        # add users
 
-        for _ in range(5):
-
-            user = User(
+        user1 = User(
                 name = fake.name(),
                 profile_photo = "https://a.storyblok.com/f/191576/1200x800/215e59568f/round_profil_picture_after_.webp",
                 bio = fake.paragraph(),
                 country = fake.country()
             )
-            db.session.add(user) 
-            db.session.commit() 
-
-        # toys
-            
-        toys = []
-
-        for _ in range(5):
-
-            toy = Toy(
-                name = fake.word(ext_word_list=['ball', 'doll', 'car', 'blocks']),
-                image_url = "https://lovevery.com/_next/image/?url=https%3A%2F%2Fimages.ctfassets.net%2F0sea1vycfyqy%2FJwOZpORwCxFJnXNMxS9v8%2F293d4cf0880b3c534f79e7924fd48e76%2FLovevery-VKS-Playkit-TheLooker-ISO-305-NOV2021.png&w=750&q=75",
-                brand = fake.company(),
-                description = fake.paragraph(),
-                link = "https://lovevery.com/products/the-play-kits-the-looker",
-                user_id = fake.random_int(min=1, max=5)
+        user2 = User(
+                name = fake.name(),
+                profile_photo = "https://a.storyblok.com/f/191576/1200x800/215e59568f/round_profil_picture_after_.webp",
+                bio = fake.paragraph(),
+                country = fake.country()
+            )
+        user3 = User(
+                name = fake.name(),
+                profile_photo = "https://a.storyblok.com/f/191576/1200x800/215e59568f/round_profil_picture_after_.webp",
+                bio = fake.paragraph(),
+                country = fake.country()
+            )
+        user4 = User(
+                name = fake.name(),
+                profile_photo = "https://a.storyblok.com/f/191576/1200x800/215e59568f/round_profil_picture_after_.webp",
+                bio = fake.paragraph(),
+                country = fake.country()
             )
 
-            db.session.add(toy) 
+        db.session.add_all([user1, user2, user3, user4]) 
+        db.session.commit() 
 
-            toys.append(toy)
+        # add toys
 
-        # age_ranges
+        toy1 = Toy(
+            name = fake.word(ext_word_list=['ball', 'doll', 'car', 'blocks']),
+            image_url = "https://lovevery.com/_next/image/?url=https%3A%2F%2Fimages.ctfassets.net%2F0sea1vycfyqy%2FJwOZpORwCxFJnXNMxS9v8%2F293d4cf0880b3c534f79e7924fd48e76%2FLovevery-VKS-Playkit-TheLooker-ISO-305-NOV2021.png&w=750&q=75",
+            brand = fake.company(),
+            description = fake.paragraph(),
+            link = "https://lovevery.com/products/the-play-kits-the-looker",
+            user = user1
+            )
+        toy2 = Toy(
+            name = fake.word(ext_word_list=['ball', 'doll', 'car', 'blocks']),
+            image_url = "https://lovevery.com/_next/image/?url=https%3A%2F%2Fimages.ctfassets.net%2F0sea1vycfyqy%2FJwOZpORwCxFJnXNMxS9v8%2F293d4cf0880b3c534f79e7924fd48e76%2FLovevery-VKS-Playkit-TheLooker-ISO-305-NOV2021.png&w=750&q=75",
+            brand = fake.company(),
+            description = fake.paragraph(),
+            link = "https://lovevery.com/products/the-play-kits-the-looker",
+            user = user1
+            )
+        toy3 = Toy(
+            name = fake.word(ext_word_list=['ball', 'doll', 'car', 'blocks']),
+            image_url = "https://lovevery.com/_next/image/?url=https%3A%2F%2Fimages.ctfassets.net%2F0sea1vycfyqy%2FJwOZpORwCxFJnXNMxS9v8%2F293d4cf0880b3c534f79e7924fd48e76%2FLovevery-VKS-Playkit-TheLooker-ISO-305-NOV2021.png&w=750&q=75",
+            brand = fake.company(),
+            description = fake.paragraph(),
+            link = "https://lovevery.com/products/the-play-kits-the-looker",
+            user = user3
+            )
+        toy4 = Toy(
+            name = fake.word(ext_word_list=['ball', 'doll', 'car', 'blocks']),
+            image_url = "https://lovevery.com/_next/image/?url=https%3A%2F%2Fimages.ctfassets.net%2F0sea1vycfyqy%2FJwOZpORwCxFJnXNMxS9v8%2F293d4cf0880b3c534f79e7924fd48e76%2FLovevery-VKS-Playkit-TheLooker-ISO-305-NOV2021.png&w=750&q=75",
+            brand = fake.company(),
+            description = fake.paragraph(),
+            link = "https://lovevery.com/products/the-play-kits-the-looker",
+            user = user4
+            )
+        
+        db.session.add_all([toy1, toy2, toy3, toy4]) 
+        db.session.commit() 
+
+        # add reviews
+
+        review1 = Review(
+                title = fake.word(),
+                body = fake.sentence(),
+                toy = toy4,
+                user = user4
+            ) 
+        review2 = Review(
+                title = fake.word(),
+                body = fake.sentence(),
+                toy = toy3,
+                user = user2
+            ) 
+        review3 = Review(
+                title = fake.word(),
+                body = fake.sentence(),
+                toy = toy2,
+                user = user3
+            ) 
+        review4 = Review(
+                title = fake.word(),
+                body = fake.sentence(),
+                toy = toy1,
+                user = user1
+            ) 
+        
+        db.session.add_all([review1, review2, review3, review4]) 
+        db.session.commit() 
+
+        # add age_ranges
 
         zero_three_months = AgeRange(
             age = "0-3 months"
@@ -101,37 +167,23 @@ if __name__ == '__main__':
             age = "9-12 years"
         )
 
-        db.session.add(zero_three_months)
-        db.session.add(three_six_months)
-        db.session.add(six_nine_months)
-        db.session.add(nine_twelve_months)
-        db.session.add(twelve_eighteen_months)
-        db.session.add(eighteen_twentyfour_months)
-        db.session.add(two_three_years)
-        db.session.add(three_five_years)
-        db.session.add(six_eight_years)
-        db.session.add(nine_twelve_years)
-
-        age_ranges = [zero_three_months, three_six_months, six_nine_months, nine_twelve_months, twelve_eighteen_months, eighteen_twentyfour_months, two_three_years, three_five_years, six_eight_years, nine_twelve_years]
-
-        for toy in toys: 
-
-            toy.age_ranges.append(three_five_years)
-            toy.age_ranges.append(six_eight_years)
-            toy.age_ranges.append(nine_twelve_years)
+        db.session.add_all([zero_three_months, three_six_months, six_nine_months, nine_twelve_months, twelve_eighteen_months, eighteen_twentyfour_months, two_three_years, three_five_years,six_eight_years, nine_twelve_years])
 
         db.session.commit()
 
-        # reviews
+        # add age_ranges to a toy
+        zero_three_months.toys.append(toy1)
+        zero_three_months.toys.append(toy2)
+        zero_three_months.toys.append(toy3)
+        zero_three_months.toys.append(toy4)
+        three_six_months.toys.append(toy1)
+        three_six_months.toys.append(toy2)
+        three_six_months.toys.append(toy3)
+        three_six_months.toys.append(toy4)
 
-        for _ in range(5):
+        # add toys to an age_range
+        toy1.age_ranges.append(six_nine_months)
+        toy1.age_ranges.append(nine_twelve_months)
+        toy1.age_ranges.append(twelve_eighteen_months)
 
-            review = Review(
-                title = fake.word(),
-                text = fake.sentence(),
-                toy_id = fake.random_int(min=1, max=5),
-                user_id = fake.random_int(min=1, max=5)
-            )
-
-            db.session.add(review) 
-            db.session.commit() 
+        db.session.commit()
