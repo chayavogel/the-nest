@@ -7,6 +7,6 @@ import usersReducer from "./components/State/UserSlice"
 export default configureStore({
   reducer: {  
     toys: toysReducer,
-    // users: usersReducer
+    users: usersReducer
   }
 })

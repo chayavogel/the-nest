@@ -1,5 +1,4 @@
 # /Users/chayavogel/Documents/Flatiron/phase-5/the-nest/server/app.py
-#!/usr/bin/env python3
 # app.py
 
 # Standard library imports
@@ -12,7 +11,7 @@ from sqlalchemy.exc import IntegrityError
 # Local imports
 from config import app, db, api
 # Add your model imports
-from models import User, Toy, AgeRange, Review, toys_age_ranges
+from models import User, Toy, AgeRange, Review
 
 
 # Views go here!
@@ -29,33 +28,44 @@ class Signup(Resource):
             email=json['email'],
         )
 
-        user.password_hash = json['password']
+        user._password_hash = json['password']
 
         if json['profile_picture']:
             user.profile_picture=json['profile_picture']
         if json['bio']:
-            user.profile_picture=json['bio']
+            user.bio=json['bio']
         if json['country']:
-            user.profile_picture=json['country']
+            user.country=json['country']
 
         try:
             db.session.add(user)
             db.session.commit()
 
+            print("in app, user instance", user)
+
             session["user_id"] = user.id
 
             user_dict = {
-                "username": user.username,
-                "image_url": user.image_url,
+                "firstname": user.firstname,
+                "lastname": user.lastname,
+                "email": user.email,
+                "profile_picture": user.profile_picture,
                 "bio": user.bio,
+                "country": user.country,
                 "id": user.id
             }
 
+            print("in app, user_dict", user_dict)
+
             return user_dict, 201                
         
-        except:
-
-            error = {"error": "invalid input"}
+        except IntegrityError as e:
+            db.session.rollback()
+            error = {"error": "Integrity constraint violation: " + str(e)}
+            return error, 422
+        
+        except KeyError as e:
+            error = {"error": "Key error: " + str(e)}
             return error, 422
 
 class CheckSession(Resource):
@@ -124,22 +134,13 @@ class Home(Resource):
 
 class Users(Resource):
 
-    def post(self):
+    def get(self):
 
-        new_record = User(
-            name=request.form['name'],
-            bio=request.form['bio'],
-            country=request.form['country'],
-        )
-
-        db.session.add(new_record)
-        db.session.commit()
-
-        response_dict = new_record.to_dict()
+        response_dict_list = [n.to_dict() for n in User.query.all()]
 
         response = make_response(
-            response_dict,
-            201,
+            response_dict_list,
+            200,
         )
 
         return response

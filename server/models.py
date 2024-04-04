@@ -34,10 +34,10 @@ class User(db.Model, SerializerMixin):
 
     # Columns
     id = db.Column(db.Integer, primary_key=True)
-    email = db.Column(db.String, unique=True)
     firstname = db.Column(db.String)
     lastname = db.Column(db.String)
-    _password_hash = db.Column(db.String)
+    email = db.Column(db.String, unique=True)
+    _password_hash = db.Column(db.String, nullable=False)
     profile_picture = db.Column(db.String, nullable=True, default="https://t4.ftcdn.net/jpg/00/64/67/63/360_F_64676383_LdbmhiNM6Ypzb3FM4PPuFP9rHe7ri8Ju.jpg")
     bio = db.Column(db.String, nullable=True)
     country = db.Column(db.String)
@@ -45,6 +45,7 @@ class User(db.Model, SerializerMixin):
     @hybrid_property
     def password_hash(self):
         raise AttributeError("Password hashes can't be viewed")
+        # return self._password_hash
     
     @password_hash.setter
     def password_hash(self, password):
@@ -69,40 +70,18 @@ class User(db.Model, SerializerMixin):
     def validate_email(self, key, email):
         existing_user = User.query.filter_by(email=email).first()
         if existing_user:
-            raise IntegrityError("Email already exists. Please use a different email.")
+            raise IntegrityError("An account associated with this email address already exists.")
+        if not validate_email(email):
+            raise EmailNotValidError
         return email
 
-    @validates('first_name')
-    def validate_name(self, key, first_name):
-        if len(first_name) > 15:
-            raise ValueError("First-name may not exceed 50 characters")
-        return first_name
-    
-    @validates('last_name')
-    def validate_name(self, key, last_name):
-        if len(last_name) > 15:
-            raise ValueError("Last-name may not exceed 50 characters")
-        return last_name
-    
     @validates('profile_picture')
     def validate_link(self, key, profile_picture):
 
         if not validators.url(profile_picture):
-            raise ValueError("Invalid profile photo URL")
+            raise ValueError("Invalid profile picture URL")
 
         return profile_picture
-    
-    @validates('bio')
-    def validate_bio(self, key, bio):
-        if len(bio) > 250:
-            raise ValueError("Bio may not exceed 250 characters")
-        return bio
-
-    @validates('email')
-    def validate_email(self, key, email):
-        if not validate_email(email):
-            raise EmailNotValidError
-        return email
 
 class Toy(db.Model, SerializerMixin):
     __tablename__ = 'toys'
@@ -138,12 +117,6 @@ class Toy(db.Model, SerializerMixin):
             if not validators.url(image_url):
                 raise ValueError("Invalid image URL")
         return image_url
-    
-    @validates('image')
-    def validate_image(self, key, image):
-        if len(image) > 50:
-            raise ValueError("Input may not exceed 50 characters")
-        return image
     
     @validates('brand')
     def validate_brand(self, key, brand):

@@ -34,7 +34,7 @@ if __name__ == '__main__':
                 firstname = fake.word(),
                 lastname = fake.word(),
                 _password_hash = fake.word(),
-                # profile_photo = "https://a.storyblok.com/f/191576/1200x800/215e59568f/round_profil_picture_after_.webp",
+                profile_picture = "https://a.storyblok.com/f/191576/1200x800/215e59568f/round_profil_picture_after_.webp",
                 bio = fake.paragraph(),
                 country = fake.country()
             )
@@ -44,7 +44,7 @@ if __name__ == '__main__':
                 firstname = fake.word(),
                 lastname = fake.word(),
                 _password_hash = fake.word(),
-                profile_photo = "https://a.storyblok.com/f/191576/1200x800/215e59568f/round_profil_picture_after_.webp",
+                profile_picture = "https://a.storyblok.com/f/191576/1200x800/215e59568f/round_profil_picture_after_.webp",
                 bio = fake.paragraph(),
                 country = fake.country()
             )
@@ -54,7 +54,7 @@ if __name__ == '__main__':
                 firstname = fake.word(),
                 lastname = fake.word(),
                 _password_hash = fake.word(),
-                profile_photo = "https://a.storyblok.com/f/191576/1200x800/215e59568f/round_profil_picture_after_.webp",
+                profile_picture = "https://a.storyblok.com/f/191576/1200x800/215e59568f/round_profil_picture_after_.webp",
                 bio = fake.paragraph(),
                 country = fake.country()
             )
@@ -64,7 +64,7 @@ if __name__ == '__main__':
                 firstname = fake.word(),
                 lastname = fake.word(),
                 _password_hash = fake.word(),
-                profile_photo = "https://a.storyblok.com/f/191576/1200x800/215e59568f/round_profil_picture_after_.webp",
+                profile_picture = "https://a.storyblok.com/f/191576/1200x800/215e59568f/round_profil_picture_after_.webp",
                 bio = fake.paragraph(),
                 country = fake.country()
             )
