@@ -45,14 +45,15 @@ class User(db.Model, SerializerMixin):
     @hybrid_property
     def password_hash(self):
         raise AttributeError("Password hashes can't be viewed")
-        # return self._password_hash
     
     @password_hash.setter
     def password_hash(self, password):
+        print(self._password_hash)
         password_hash = bcrypt.generate_password_hash(
             password.encode('utf-8')
         )
         self._password_hash = password_hash.decode('utf-8')
+        print(self._password_hash)
 
     def authenticate(self, password):
         return bcrypt.check_password_hash(
@@ -63,7 +64,7 @@ class User(db.Model, SerializerMixin):
     reviews = db.relationship('Review', back_populates='user', cascade='all, delete-orphan')
 
     # Serialize Rules
-    serialize_rules = ('-toys.user', '-toys.reviews.user', '-toys.age_ranges', '-reviews.user', '-reviews.toy', '-toys.user_id')
+    serialize_rules = ('-toys.user', '-toys.reviews.user', '-toys.age_ranges', '-reviews.user', '-reviews.toy', '-toys.user_id', '-_password_hash')
 
     # Constraints
     @validates('email')
@@ -79,8 +80,11 @@ class User(db.Model, SerializerMixin):
     def validate_link(self, key, profile_picture):
 
         if not validators.url(profile_picture):
+            print("First")
+            print(validators.url(profile_picture))
             raise ValueError("Invalid profile picture URL")
-
+        print("SECOND")
+        print(validators.url(profile_picture))
         return profile_picture
 
 class Toy(db.Model, SerializerMixin):
@@ -126,16 +130,14 @@ class Toy(db.Model, SerializerMixin):
     
     @validates('description')
     def validate_description(self, key, description):
-        if len(description) > 250:
+        if len(description) > 350:
             raise ValueError("Description may not exceed 250 characters")
         return description
     
     @validates('link')
     def validate_link(self, key, link):
-
         if not validators.url(link):
             raise ValueError("Invalid toy URL")
-
         return link
 
 class AgeRange(db.Model, SerializerMixin):

@@ -1,9 +1,10 @@
-// /Users/chayavogel/Documents/Flatiron/phase-5/the-nest/client/src/components/Pages/ToyPage.js
+// Show loading, content or error
 
-import ToyCard from "../Features/ToyCard"
+import ToyCard from "./ToyCard"
 import { useEffect} from "react"
 import { useSelector, useDispatch } from 'react-redux'
-import { fetchToys } from "../State/ToySlice"
+import { fetchToys } from "./ToySlice"
+import NavBar from "../../NavBar"
 
 function ToyPage() {
     const toys = useSelector(state => state.toys.value)
@@ -15,6 +16,7 @@ function ToyPage() {
 
     return (
         <>
+        <NavBar/>
         {toys.map(toy => <ToyCard key={toy.id} toy={toy}/>)}
         </>
     )

@@ -1,0 +1,32 @@
+//  get the id specific toy from redux state
+
+import ToyDetailsCard from "./ToyDetailsCard"
+import { useEffect} from "react"
+import { useSelector, useDispatch } from 'react-redux'
+import NavBar from "../../NavBar"
+import { fetchToys } from "../ToyCards/ToySlice"
+import { useParams } from "react-router-dom";
+
+function ToyDetailsPage() {
+    const params = useParams();
+    const toyId = params.id;
+    const dispatch = useDispatch()
+
+    useEffect(() => {
+        dispatch(fetchToys());
+    }, [dispatch]);
+    
+    const toy = useSelector(state =>
+        state.toys.value.find(toy => toy.id === parseInt(toyId))
+    );
+
+    
+    return (
+        <>
+        <NavBar/>
+        {toy && <ToyDetailsCard toy={toy} />}
+        </>
+    )
+}
+
+export default ToyDetailsPage

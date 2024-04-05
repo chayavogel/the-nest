@@ -28,7 +28,7 @@ class Signup(Resource):
             email=json['email'],
         )
 
-        user._password_hash = json['password']
+        user.password_hash = json['password']
 
         if json['profile_picture']:
             user.profile_picture=json['profile_picture']
@@ -99,9 +99,9 @@ class Login(Resource):
                 print(session["user_id"])
                 return user.to_dict(), 200
             else:
-                return {"error":"unauthorized"}, 401
+                return {"error":"Email or password is incorrect"}, 401
         else: 
-            return {"error":"username doesn't exist in database"}, 401 
+            return {"error":"There is no account associated with this email address"}, 401 
 
 class Logout(Resource):
     
@@ -173,11 +173,14 @@ class Toys(Resource):
 
     def post(self):
 
+        json = request.get_json()
+
         new_record = Toy(
-            name=request.form['name'],
-            image_url=request.form['image_url'],
-            description=request.form['description'],
-            link=request.form['link'],
+            name=json['name'],
+            image_url=json['image_url'],
+            brand=json['brand'],
+            description=json['description'],
+            link=json['link'],
         )
 
         db.session.add(new_record)

@@ -1,5 +1,3 @@
-// /Users/chayavogel/Documents/Flatiron/phase-5/the-nest/client/src/components/State/ToySlice.js
-
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 
 export const fetchToys = createAsyncThunk('toys/fetchToys', async () => {
@@ -9,10 +7,18 @@ export const fetchToys = createAsyncThunk('toys/fetchToys', async () => {
 })
 
 export const createToy = createAsyncThunk(
-  'toys/createToy',
-  async initialToy => {
-    const response = await fetch.post("http://localhost:3000/toys", initialToy)
-    return response.data
+  'users/createToy',
+   async (initialToy) => {
+    const response = await fetch("http://localhost:3000/toys", {
+      method: "POST",
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+      body: JSON.stringify(initialToy)
+    })
+    const data = await response.json();
+    return data;
   }
 )
 
@@ -37,7 +43,20 @@ const toysSlice = createSlice({
         state.status = 'failed'
         state.error = action.error.message
       })
+      .addCase(createToy.pending, (state, action) => {
+        state.status = 'loading'
+      })
+      .addCase(createToy.fulfilled, (state, action) => {
+        state.status = 'succeeded'
+        state.value.push(action.payload)
+      })
+      .addCase(createToy.rejected, (state, action) => {
+        state.status = 'failed'
+        state.error = action.error.message
+      })
   }
 })
+
+export const { toyAdded } = toysSlice.actions
 
 export default toysSlice.reducer
