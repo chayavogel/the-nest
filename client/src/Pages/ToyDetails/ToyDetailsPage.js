@@ -1,5 +1,3 @@
-//  get the id specific toy from redux state
-
 import ToyDetailsCard from "./ToyDetailsCard"
 import { useEffect} from "react"
 import { useSelector, useDispatch } from 'react-redux'

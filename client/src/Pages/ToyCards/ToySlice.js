@@ -37,7 +37,7 @@ const toysSlice = createSlice({
       })
       .addCase(fetchToys.fulfilled, (state, action) => {
         state.status = 'succeeded'
-        state.value = state.value.concat(action.payload)
+        state.value = action.payload;
       })
       .addCase(fetchToys.rejected, (state, action) => {
         state.status = 'failed'

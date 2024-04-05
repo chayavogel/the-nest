@@ -1,4 +1,5 @@
 // Show loading, content or error
+// create filter component to filter toys by age range
 
 import ToyCard from "./ToyCard"
 import { useEffect} from "react"
@@ -17,6 +18,7 @@ function ToyPage() {
     return (
         <>
         <NavBar/>
+        <p>Toys</p>
         {toys.map(toy => <ToyCard key={toy.id} toy={toy}/>)}
         </>
     )
