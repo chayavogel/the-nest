@@ -1,8 +1,5 @@
-// When you click on details it takes you to details page for that toy
-// user profile photo link will be replaced with a route to the user details page of that user
-// add comments
-
 // import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 function ToyDetailsCard( { toy } ) {
 
@@ -13,9 +10,17 @@ function ToyDetailsCard( { toy } ) {
         <a href={toy.link}>Purchase</a>
         <p>{toy.brand}</p>
         <p>{toy.description}</p>
-        <a href={toy.user.profile_picture}><img src={toy.user.profile_picture} alt={toy.user.firstname + " " + toy.user.lastname} /></a>
+        <Link to={`/user_details/${toy.user.id}`}><img src={toy.user.profile_picture} alt={toy.user.firstname + " " + toy.user.lastname} /></Link>
         <p>{toy.user.firstname + toy.user.lastname}</p>
-        {/* comments */}
+        <p>Comments</p>
+        <ul>
+          {toy.reviews.map((review) => (
+            <li key={review.id}>
+              <p>Title: {review.title}</p>
+              <p>Content: {review.body}</p>
+            </li>
+          ))}
+        </ul>
         </>
     );
 

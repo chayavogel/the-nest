@@ -1,3 +1,5 @@
+// add what im gonna write in my homepage
+
 import NavBar from "../../NavBar"
 
 function HomePage() {

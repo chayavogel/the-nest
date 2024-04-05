@@ -1,4 +1,3 @@
-//  get the user from the backend
 import { useEffect } from "react";
 import UserDetailsCard from "./UserDetailsCard";
 import { useDispatch, useSelector } from 'react-redux';

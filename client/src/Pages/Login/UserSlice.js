@@ -6,15 +6,6 @@ export const fetchUsers = createAsyncThunk('users/fetchUsers', async () => {
   return data
 })
 
-export const fetchUsersById = createAsyncThunk(
-  'users/fetchUserById',
-  async (userId) => {
-    const response = await fetch(`http://localhost:3000/users/${userId}`);
-    const data = await response.json()
-    return data
-  }
-)
-
 export const createUser = createAsyncThunk(
   'users/createUser',
    async (initialUser) => {
@@ -87,17 +78,6 @@ const usersSlice = createSlice({
         state.value = (action.payload)
       })
       .addCase(loginUser.rejected, (state, action) => {
-        state.status = 'failed'
-        state.error = action.error.message
-      })
-      .addCase(fetchUsersById.pending, (state, action) => {
-        state.status = 'loading'
-      })
-      .addCase(fetchUsersById.fulfilled, (state, action) => {
-        state.status = 'succeeded'
-        state.value = (action.payload)
-      })
-      .addCase(fetchUsersById.rejected, (state, action) => {
         state.status = 'failed'
         state.error = action.error.message
       })
