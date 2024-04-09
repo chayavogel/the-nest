@@ -57,6 +57,4 @@ const toysSlice = createSlice({
   }
 })
 
-export const { toyAdded } = toysSlice.actions
-
 export default toysSlice.reducer

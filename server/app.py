@@ -41,9 +41,9 @@ class Signup(Resource):
             db.session.add(user)
             db.session.commit()
 
-            print("in app, user instance", user)
-
             session["user_id"] = user.id
+
+            print("current user after logging in from app", session["user_id"])
 
             user_dict = {
                 "firstname": user.firstname,
@@ -54,8 +54,6 @@ class Signup(Resource):
                 "country": user.country,
                 "id": user.id
             }
-
-            print("in app, user_dict", user_dict)
 
             return user_dict, 201                
         
@@ -76,10 +74,12 @@ class CheckSession(Resource):
 
             user = User.query.filter(User.id == session["user_id"]).first()
 
+            print("current user after checking session from app", session["user_id"])
+
             if user:
                 return user.to_dict(), 200
             else:
-                return {"error": "user not found"}, 404
+                return {"error": "user not logged in"}, 404
         
         else:
             return {}, 401
@@ -96,7 +96,7 @@ class Login(Resource):
         if user:
             if user.authenticate(password):
                 session["user_id"] = user.id
-                print(session["user_id"])
+                print("current user after logging in from app", session["user_id"])
                 return user.to_dict(), 200
             else:
                 return {"error":"Email or password is incorrect"}, 401
@@ -121,16 +121,24 @@ class Home(Resource):
 
     def get(self):
 
-        response_dict = {
-            "message": "Welcome to the nest",
-        }
+        if "user_id" in session and session["user_id"]:
 
-        response = make_response(
-            response_dict,
-            200
-        )
+            response_dict = {
+                "message": "Welcome to the nest",
+            }
 
-        return response
+            response = make_response(
+                response_dict,
+                200
+            )
+
+            return response
+        
+        else:
+            return {
+                    "error": "user not logged in"
+                }, 401
+        
 
 class Users(Resource):
 
@@ -162,122 +170,182 @@ class Toys(Resource):
 
     def get(self):
 
-        response_dict_list = [n.to_dict() for n in Toy.query.all()]
+        if "user_id" in session and session["user_id"]:
 
-        response = make_response(
-            response_dict_list,
-            200,
-        )
+            response_dict_list = [n.to_dict() for n in Toy.query.all()]
 
-        return response
+            response = make_response(
+                response_dict_list,
+                200,
+            )
+
+            return response
+        
+        else:
+            return {
+                    "error": "user not logged in"
+                }, 401
 
     def post(self):
 
-        json = request.get_json()
+        if "user_id" in session and session["user_id"]:
 
-        new_record = Toy(
-            name=json['name'],
-            image_url=json['image_url'],
-            brand=json['brand'],
-            description=json['description'],
-            link=json['link'],
-        )
+            json = request.get_json()
 
-        db.session.add(new_record)
-        db.session.commit()
+            new_record = Toy(
+                name=json['name'],
+                image_url=json['image_url'],
+                brand=json['brand'],
+                description=json['description'],
+                link=json['link'],
+                user_id=session["user_id"]
+            )
 
-        response_dict = new_record.to_dict()
+            db.session.add(new_record)
+            db.session.commit()
 
-        response = make_response(
-            response_dict,
-            201,
-        )
+            response_dict = new_record.to_dict()
 
-        return response
+            response = make_response(
+                response_dict,
+                201,
+            )
+
+            return response
+        
+        else:
+            return {
+                    "error": "user not logged in"
+                }, 401
+
+        
     
 class ToyByID(Resource):
 
     def get(self, id):
+    
+        if "user_id" in session and session["user_id"]:
 
-        response_dict = Toy.query.filter_by(id=id).first().to_dict()
+            response_dict = Toy.query.filter_by(id=id).first().to_dict()
 
-        response = make_response(
-            response_dict,
-            200,
-        )
+            response = make_response(
+                response_dict,
+                200,
+            )
 
-        return response
+            return response
+            
+        else:
+            return {
+                    "error": "user not logged in"
+                }, 401
     
 class AgeRanges(Resource):
 
     def get(self):
 
-        response_dict_list = [n.to_dict() for n in AgeRange.query.all()]
+        if "user_id" in session and session["user_id"]:
 
-        response = make_response(
-            response_dict_list,
-            200,
-        )
+            response_dict_list = [n.to_dict() for n in AgeRange.query.all()]
 
-        return response
+            response = make_response(
+                response_dict_list,
+                200,
+            )
+
+            return response
+            
+        else:
+            return {
+                    "error": "user not logged in"
+                }, 401
     
 class AgeRangeByID(Resource):
 
-    def get(self, id):
+    def get(self, id):  
+    
+        if "user_id" in session and session["user_id"]:
 
-        response_dict = AgeRange.query.filter_by(id=id).first().to_dict()
+            response_dict = AgeRange.query.filter_by(id=id).first().to_dict()
 
-        response = make_response(
-            response_dict,
-            200,
-        )
+            response = make_response(
+                response_dict,
+                200,
+            )
 
-        return response
+            return response
+                
+        else:
+            return {
+                    "error": "user not logged in"
+                }, 401
     
 class Reviews(Resource):
 
     def get(self):
 
-        response_dict_list = [n.to_dict() for n in Review.query.all()]
+        if "user_id" in session and session["user_id"]:
 
-        response = make_response(
-            response_dict_list,
-            200,
-        )
+            response_dict_list = [n.to_dict() for n in Review.query.all()]
 
-        return response
-    
+            response = make_response(
+                response_dict_list,
+                200,
+            )
+
+            return response
+                
+        else:
+            return {
+                    "error": "user not logged in"
+                }, 401
+
     def post(self):
 
-        new_record = Review(
+        if "user_id" in session and session["user_id"]:
+
+            new_record = Review(
             title=request.form['title'],
             text=request.form['text']
-        )
+            )
 
-        db.session.add(new_record)
-        db.session.commit()
+            db.session.add(new_record)
+            db.session.commit()
 
-        response_dict = new_record.to_dict()
+            response_dict = new_record.to_dict()
 
-        response = make_response(
-            response_dict,
-            201,
-        )
+            response = make_response(
+                response_dict,
+                201,
+            )
 
-        return response
+            return response
+                
+        else:
+            return {
+                    "error": "user not logged in"
+                }, 401
+        
     
 class ReviewByID(Resource):
 
     def get(self, id):
+    
+        if "user_id" in session and session["user_id"]:
 
-        response_dict = Review.query.filter_by(id=id).first().to_dict()
+            response_dict = Review.query.filter_by(id=id).first().to_dict()
 
-        response = make_response(
-            response_dict,
-            200,
-        )
+            response = make_response(
+                response_dict,
+                200,
+            )
 
-        return response
+            return response
+                
+        else:
+            return {
+                    "error": "user not logged in"
+                }, 401
 
 api.add_resource(Signup, '/signup')
 api.add_resource(CheckSession, '/check_session')

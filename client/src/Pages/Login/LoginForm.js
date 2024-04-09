@@ -1,9 +1,9 @@
-// navigate to homepage or get a descriptive error after logging in. 
+// navigate to homepage only if successful or get a descriptive error 
 
 import { useFormik } from "formik";
 import * as yup from "yup";
-import { useDispatch } from 'react-redux';
-import { loginUser } from "./UserSlice";
+import { useDispatch, useSelector } from 'react-redux';
+import { loginUser } from "../../Slices/UsersSlice"
 
 function LoginForm() {
 
@@ -21,8 +21,8 @@ function LoginForm() {
         },
         validationSchema: formSchema,
         onSubmit: async (values) => {
-          dispatch(loginUser(values));
-          formik.resetForm();
+          await dispatch(loginUser(values));
+          formik.resetForm()
         },    
       });
 

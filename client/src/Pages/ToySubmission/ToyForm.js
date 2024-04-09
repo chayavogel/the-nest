@@ -1,7 +1,7 @@
 import { useFormik } from "formik";
 import * as yup from "yup";
 import { useDispatch } from 'react-redux'
-import { createToy } from "../ToyCards/ToySlice"
+import { createToy } from "../../Slices/ToySlice"
 
 function ToyForm() {
 

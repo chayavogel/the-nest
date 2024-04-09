@@ -2,9 +2,9 @@
 // create filter component to filter toys by age range
 
 import ToyCard from "./ToyCard"
-import { useEffect} from "react"
+import { useEffect } from "react"
 import { useSelector, useDispatch } from 'react-redux'
-import { fetchToys } from "./ToySlice"
+import { fetchToys } from "../../Slices/ToySlice"
 import NavBar from "../../NavBar"
 
 function ToyPage() {

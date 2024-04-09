@@ -48,12 +48,10 @@ class User(db.Model, SerializerMixin):
     
     @password_hash.setter
     def password_hash(self, password):
-        print(self._password_hash)
         password_hash = bcrypt.generate_password_hash(
             password.encode('utf-8')
         )
         self._password_hash = password_hash.decode('utf-8')
-        print(self._password_hash)
 
     def authenticate(self, password):
         return bcrypt.check_password_hash(
@@ -80,11 +78,7 @@ class User(db.Model, SerializerMixin):
     def validate_link(self, key, profile_picture):
 
         if not validators.url(profile_picture):
-            print("First")
-            print(validators.url(profile_picture))
             raise ValueError("Invalid profile picture URL")
-        print("SECOND")
-        print(validators.url(profile_picture))
         return profile_picture
 
 class Toy(db.Model, SerializerMixin):
@@ -98,9 +92,9 @@ class Toy(db.Model, SerializerMixin):
     brand = db.Column(db.String)
     description = db.Column(db.String)
     link = db.Column(db.String)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
 
     # Relationships
-    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     user = db.relationship('User', back_populates='toys')
     reviews = db.relationship('Review', back_populates='toy', cascade='all, delete-orphan')
     age_ranges = db.relationship('AgeRange', secondary=toys_age_ranges, back_populates='toys')

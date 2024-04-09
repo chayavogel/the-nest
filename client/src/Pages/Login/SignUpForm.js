@@ -1,14 +1,16 @@
-// navigate to homepage or get a descriptive error after signing up
+// navigate to homepage only if successful or get a descriptive error
 
 import React from "react";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import { useDispatch } from 'react-redux'
-import { createUser } from "./UserSlice"
+import { createUser } from "../../Slices/UsersSlice"
+import { useNavigate } from "react-router-dom";
 
 function SignupForm() {
 
   const dispatch = useDispatch()
+  const navigate = useNavigate();
 
   const formSchema = yup.object().shape({
     firstname: yup.string().required("First name required").max(15),
@@ -32,8 +34,8 @@ function SignupForm() {
     },
     validationSchema: formSchema,
     onSubmit: async (values) => {
-      dispatch(createUser(values));
-      formik.resetForm();
+      await dispatch(createUser(values));
+      // formik.resetForm();
     }
   });
 
