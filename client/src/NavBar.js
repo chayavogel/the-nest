@@ -1,35 +1,25 @@
 // add logout button, make logout actually end the session
 
-import { NavLink, useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { NavLink } from "react-router-dom";
+import { useDispatch } from "react-redux";
 import { logoutUser } from "./Slices/UsersSlice"
-import { useEffect } from "react";
 
 
 function NavBar() {
 
     const dispatch = useDispatch()
-    const navigate = useNavigate()
-    const currentUser = useSelector((state) => state.users.currentUser)
 
     function handleLogout() {
-        console.log("currentUser:", currentUser);
         dispatch(logoutUser())
-        console.log("currentUser:", currentUser);
     }
-
-    useEffect(() => {
-        console.log("currentUser:", currentUser);
-        if (currentUser === false) {
-          navigate("/toys");
-          console.log(currentUser)
-        }
-      }, [currentUser, navigate]);
 
     return (
         <nav>
+            <button onClick={handleLogout}>
+                Logout
+            </button>
             <NavLink
-                to="/home"
+                to="/"
                 className="nav-link"
             >
                 Home
@@ -44,11 +34,8 @@ function NavBar() {
                 to="/toy_form"
                 className="nav-link"
             >
-                Submit
+                Post a Toy
             </NavLink>
-            <button onClick={handleLogout}>
-                Logout
-            </button>
         </nav>
     )
 }

@@ -43,8 +43,6 @@ class Signup(Resource):
 
             session["user_id"] = user.id
 
-            print("current user after logging in from app", session["user_id"])
-
             user_dict = {
                 "firstname": user.firstname,
                 "lastname": user.lastname,
@@ -70,11 +68,9 @@ class CheckSession(Resource):
                 
     def get(self):
 
-        if "user_id" in session and session["user_id"]:
+        if session.get("user_id"):
 
             user = User.query.filter(User.id == session["user_id"]).first()
-
-            print("current user after checking session from app", session["user_id"])
 
             if user:
                 return user.to_dict(), 200
@@ -107,7 +103,7 @@ class Logout(Resource):
     
     def delete(self):
             
-        if "user_id" in session and session["user_id"]:
+        if session.get("user_id"):
 
             session["user_id"] = None
             return {}, 204
@@ -121,7 +117,7 @@ class Home(Resource):
 
     def get(self):
 
-        if "user_id" in session and session["user_id"]:
+        if session.get("user_id"):
 
             response_dict = {
                 "message": "Welcome to the nest",
@@ -170,7 +166,7 @@ class Toys(Resource):
 
     def get(self):
 
-        if "user_id" in session and session["user_id"]:
+        # if session.get("user_id"):
 
             response_dict_list = [n.to_dict() for n in Toy.query.all()]
 
@@ -181,16 +177,19 @@ class Toys(Resource):
 
             return response
         
-        else:
-            return {
-                    "error": "user not logged in"
-                }, 401
+        # else:
+        #     return {
+        #             "error": "user not logged in"
+        #         }, 401
 
     def post(self):
 
-        if "user_id" in session and session["user_id"]:
+        if session.get("user_id"):
 
             json = request.get_json()
+
+            form_age_ranges = json.get('age_ranges')
+            database_age_ranges = AgeRange.query.all()
 
             new_record = Toy(
                 name=json['name'],
@@ -200,6 +199,11 @@ class Toys(Resource):
                 link=json['link'],
                 user_id=session["user_id"]
             )
+
+            for form_age_range in form_age_ranges:
+                for database_age_range in database_age_ranges:
+                    if form_age_range == database_age_range.age:
+                        new_record.age_ranges.append(database_age_range)
 
             db.session.add(new_record)
             db.session.commit()
@@ -224,7 +228,7 @@ class ToyByID(Resource):
 
     def get(self, id):
     
-        if "user_id" in session and session["user_id"]:
+        if session.get("user_id"):
 
             response_dict = Toy.query.filter_by(id=id).first().to_dict()
 
@@ -244,7 +248,7 @@ class AgeRanges(Resource):
 
     def get(self):
 
-        if "user_id" in session and session["user_id"]:
+        if session.get("user_id"):
 
             response_dict_list = [n.to_dict() for n in AgeRange.query.all()]
 
@@ -264,7 +268,7 @@ class AgeRangeByID(Resource):
 
     def get(self, id):  
     
-        if "user_id" in session and session["user_id"]:
+        if session.get("user_id"):
 
             response_dict = AgeRange.query.filter_by(id=id).first().to_dict()
 
@@ -284,7 +288,7 @@ class Reviews(Resource):
 
     def get(self):
 
-        if "user_id" in session and session["user_id"]:
+        if session.get("user_id"):
 
             response_dict_list = [n.to_dict() for n in Review.query.all()]
 
@@ -302,7 +306,7 @@ class Reviews(Resource):
 
     def post(self):
 
-        if "user_id" in session and session["user_id"]:
+        if session.get("user_id"):
 
             new_record = Review(
             title=request.form['title'],
@@ -331,7 +335,7 @@ class ReviewByID(Resource):
 
     def get(self, id):
     
-        if "user_id" in session and session["user_id"]:
+        if session.get("user_id"):
 
             response_dict = Review.query.filter_by(id=id).first().to_dict()
 

@@ -18,11 +18,6 @@ const routes = [
       children: [
           {
             path: "/",
-            element: <LoginPage />,
-            errorElement: <ErrorPage />
-          },
-          {
-            path: "/home",
             element: <HomePage />,
             errorElement: <ErrorPage />
           },

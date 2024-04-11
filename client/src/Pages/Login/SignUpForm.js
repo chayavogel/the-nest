@@ -43,7 +43,7 @@ function SignupForm() {
     <>
     <form onSubmit={formik.handleSubmit}>
       <fieldset>
-      <legend>Don't have an account? Sign Up</legend>
+      <legend>Sign Up</legend>
       
         <br />
 

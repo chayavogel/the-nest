@@ -1,25 +1,35 @@
-import { Outlet } from "react-router-dom"
-import { useSelector } from 'react-redux'
+import { Outlet , useNavigate } from "react-router-dom"
+import { useSelector, useDispatch } from 'react-redux'
+import { fetchCurrentUser } from "../Slices/UsersSlice"
+import { useEffect } from "react";
 
 import LoginPage from "./Login/LoginPage";
-import HomePage from "./Home/HomePage";
+
 
 function App() {
 
   const currentUser = useSelector((state) => state.users.currentUser)
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
 
-  console.log("in app component", currentUser)
+  useEffect(() => {
+      dispatch(fetchCurrentUser());
+  }, [dispatch]);
+
+  function handleClick() {
+    navigate("/")
+  }
 
   return (
     <>
     <header>
-      <h1>The Nest</h1>
+      <h1 onClick={handleClick} >The Nest</h1>
       <p>Where moms flock</p>
     </header>
-    { currentUser ? <HomePage /> : <LoginPage /> }
-    {/* <Outlet /> */}
+    { currentUser ? <Outlet /> : <LoginPage /> }
     </>
   );
 }
 
 export default App;
+

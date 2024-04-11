@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 
 export const fetchToys = createAsyncThunk('toys/fetchToys', async () => {
-  const response = await fetch("http://localhost:3000/toys")
+  const response = await fetch("/toys")
   const data = await response.json();
   return data
 })
@@ -9,7 +9,7 @@ export const fetchToys = createAsyncThunk('toys/fetchToys', async () => {
 export const createToy = createAsyncThunk(
   'users/createToy',
    async (initialToy) => {
-    const response = await fetch("http://localhost:3000/toys", {
+    const response = await fetch("/toys", {
       method: "POST",
       headers: {
         'Content-Type': 'application/json',
@@ -25,6 +25,7 @@ export const createToy = createAsyncThunk(
 const toysSlice = createSlice({
   name: 'toys',
   initialState: {
+    status: "",
     value: []
   },
   reducers: {

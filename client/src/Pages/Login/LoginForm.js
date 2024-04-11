@@ -2,12 +2,14 @@
 
 import { useFormik } from "formik";
 import * as yup from "yup";
-import { useDispatch, useSelector } from 'react-redux';
-import { loginUser } from "../../Slices/UsersSlice"
+import { useDispatch } from 'react-redux';
+import { loginUser } from "../../Slices/UsersSlice";
+import { useNavigate } from "react-router-dom";
 
 function LoginForm() {
 
     const dispatch = useDispatch()
+    const navigate = useNavigate()
 
     const formSchema = yup.object().shape({
         email: yup.string().email("Invalid email").required("Email address required"),
@@ -23,6 +25,7 @@ function LoginForm() {
         onSubmit: async (values) => {
           await dispatch(loginUser(values));
           formik.resetForm()
+          navigate("/")
         },    
       });
 

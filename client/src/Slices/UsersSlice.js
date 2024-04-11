@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 
 export const fetchUsers = createAsyncThunk('users/fetchUsers', async () => {
-  const response = await fetch("http://localhost:3000/users")
+  const response = await fetch("/users")
   const data = await response.json();
   return data
 })
@@ -9,7 +9,7 @@ export const fetchUsers = createAsyncThunk('users/fetchUsers', async () => {
 export const createUser = createAsyncThunk(
   'users/createUser',
    async (initialUser) => {
-    const response = await fetch("http://localhost:3000/signup", {
+    const response = await fetch("/signup", {
       method: "POST",
       headers: {
         'Content-Type': 'application/json',
@@ -18,7 +18,6 @@ export const createUser = createAsyncThunk(
       body: JSON.stringify(initialUser)
     })
     const data = await response.json();
-    console.log("response from signing up in usersslice", data)
     return data;
   }
 )
@@ -26,7 +25,7 @@ export const createUser = createAsyncThunk(
 export const loginUser = createAsyncThunk(
   'users/loginUser',
     async (initialUser) => {
-    const response = await fetch("http://localhost:3000/login", {
+    const response = await fetch("/login", {
       method: "POST",
       headers: {
         'Content-Type': 'application/json',
@@ -35,7 +34,6 @@ export const loginUser = createAsyncThunk(
       body: JSON.stringify(initialUser)
     })
     const data = await response.json();
-    console.log("response from loggin in in users slice", data)
     return data;
   }
 )
@@ -43,13 +41,11 @@ export const loginUser = createAsyncThunk(
 export const logoutUser = createAsyncThunk(
   'users/logoutUser',
     async () => {
-    const response = await fetch("http://localhost:3000/logout", {
+    const response = await fetch("/logout", {
       method: "DELETE"
     })
-    if (response.ok) {
-      const res = await response.json();
-      console.log("this", res)
-      return res;
+    if (response.status === 204) {
+      return {}
     } else {
       throw new Error('Logout failed');
     }
@@ -128,8 +124,8 @@ const usersSlice = createSlice({
           state.errors = action.payload.error;
         } else {
           state.currentUser = action.payload;
+          state.isLoggedIn = true
         }
-        state.isLoggedIn = true
       })
       .addCase(fetchCurrentUser.rejected, (state, action) => {
         state.status = 'failed'
