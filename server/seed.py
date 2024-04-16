@@ -39,6 +39,8 @@ if __name__ == '__main__':
                 country = fake.country()
             )
         
+        user1.password_hash = fake.word()
+        
         user2 = User(
                 email = "happy@gmail.com",
                 firstname = fake.word(),
@@ -48,6 +50,8 @@ if __name__ == '__main__':
                 bio = fake.paragraph(),
                 country = fake.country()
             )
+        
+        user2.password_hash = fake.word()
         
         user3 = User(
                 email = "pappy@gmail.com",
@@ -59,6 +63,8 @@ if __name__ == '__main__':
                 country = fake.country()
             )
         
+        user3.password_hash = fake.word()
+        
         user4 = User(
                 email = "lappy@gmail.com",
                 firstname = fake.word(),
@@ -68,6 +74,8 @@ if __name__ == '__main__':
                 bio = fake.paragraph(),
                 country = fake.country()
             )
+        
+        user4.password_hash = fake.word()
 
         db.session.add_all([user1, user2, user3, user4]) 
         db.session.commit() 
@@ -116,25 +124,25 @@ if __name__ == '__main__':
                 title = fake.word(),
                 body = fake.sentence(),
                 toy = toy4,
-                user = user4
+                user_id = user4.id
             ) 
         review2 = Review(
                 title = fake.word(),
                 body = fake.sentence(),
                 toy = toy3,
-                user = user2
+                user_id = user4.id
             ) 
         review3 = Review(
                 title = fake.word(),
                 body = fake.sentence(),
                 toy = toy2,
-                user = user3
+                user_id = user4.id
             ) 
         review4 = Review(
                 title = fake.word(),
                 body = fake.sentence(),
                 toy = toy1,
-                user = user1
+                user_id = user4.id
             ) 
         
         db.session.add_all([review1, review2, review3, review4]) 

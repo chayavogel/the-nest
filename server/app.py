@@ -1,20 +1,24 @@
-# /Users/chayavogel/Documents/Flatiron/phase-5/the-nest/server/app.py
-# app.py
-
-# Standard library imports
-
-# Remote library imports
 from flask import Flask, request, session, make_response
 from flask_restful import Resource
 from sqlalchemy.exc import IntegrityError
-
-# Local imports
 from config import app, db, api
-# Add your model imports
 from models import User, Toy, AgeRange, Review
 
+class CheckSession(Resource):
+                
+    def get(self):
 
-# Views go here!
+        if session.get("user_id"):
+
+            user = User.query.filter(User.id == session["user_id"]).first()
+
+            if user:
+                return user.to_dict(), 200
+            else:
+                return {}, 401
+        
+        else:
+            return {}, 401
 
 class Signup(Resource):
     
@@ -22,22 +26,23 @@ class Signup(Resource):
 
         json = request.get_json()
 
-        user = User(
-            firstname=json['firstname'],
-            lastname=json['lastname'],
-            email=json['email'],
-        )
-
-        user.password_hash = json['password']
-
-        if json['profile_picture']:
-            user.profile_picture=json['profile_picture']
-        if json['bio']:
-            user.bio=json['bio']
-        if json['country']:
-            user.country=json['country']
-
         try:
+
+            user = User(
+                firstname=json['firstname'],
+                lastname=json['lastname'],
+                email=json['email'],
+            )
+
+            user.password_hash = json['password']
+
+            if json['profile_picture']:
+                user.profile_picture=json['profile_picture']
+            if json['bio']:
+                user.bio=json['bio']
+            if json['country']:
+                user.country=json['country']
+        
             db.session.add(user)
             db.session.commit()
 
@@ -53,51 +58,33 @@ class Signup(Resource):
                 "id": user.id
             }
 
-            return user_dict, 201                
+            return user_dict, 201       
+    
+        except Exception as err:
+            return {"error": [str(err)]}, 422
         
-        except IntegrityError as e:
-            db.session.rollback()
-            error = {"error": "Integrity constraint violation: " + str(e)}
-            return error, 422
-        
-        except KeyError as e:
-            error = {"error": "Key error: " + str(e)}
-            return error, 422
-
-class CheckSession(Resource):
-                
-    def get(self):
-
-        if session.get("user_id"):
-
-            user = User.query.filter(User.id == session["user_id"]).first()
-
-            if user:
-                return user.to_dict(), 200
-            else:
-                return {"error": "user not logged in"}, 404
-        
-        else:
-            return {}, 401
-
 class Login(Resource):
     
     def post(self):
 
         json = request.get_json()
 
-        email = json['email']
-        password = json['password']
-        user = User.query.filter(User.email == email).first()
-        if user:
-            if user.authenticate(password):
-                session["user_id"] = user.id
-                print("current user after logging in from app", session["user_id"])
-                return user.to_dict(), 200
-            else:
-                return {"error":"Email or password is incorrect"}, 401
-        else: 
-            return {"error":"There is no account associated with this email address"}, 401 
+        try:
+
+            email = json['email']
+            password = json['password']
+            user = User.query.filter(User.email == email).first()
+            if user:
+                if user.authenticate(password):
+                    session["user_id"] = user.id
+                    return user.to_dict(), 200
+                else:
+                    return {"error":"Incorrect password"}, 401
+            else: 
+                return {"error":"There is no account associated with this email address"}, 401
+
+        except Exception as err:
+                return {"error": str(err)}, 401 
 
 class Logout(Resource):
     
@@ -105,70 +92,90 @@ class Logout(Resource):
             
         if session.get("user_id"):
 
-            session["user_id"] = None
-            return {}, 204
+            try:
+
+                session["user_id"] = None
+                return {}, 204
+            
+            except Exception as err:
+                return {"error": [str(err)]}, 401
         
         else:
-            return {
-                    "error": "user not logged in"
-                }, 401
+            return {}, 401
 
-class Home(Resource):
-
-    def get(self):
+class EditAccount(Resource):
+    
+    def put(self):
 
         if session.get("user_id"):
 
-            response_dict = {
-                "message": "Welcome to the nest",
-            }
+            user_id = session["user_id"]
+            json = request.get_json()
 
-            response = make_response(
-                response_dict,
-                200
-            )
+            try:
 
-            return response
+                currentUser = User.query.filter_by(id=user_id).first()
+
+                currentUser.firstname = json['firstname']
+                currentUser.lastname = json['lastname']
+                currentUser.email = json['email']
+                # currentUser.password_hash = json['password']
+                if json['profile_picture']:
+                    currentUser.profile_picture = json['profile_picture']
+                else:
+                    currentUser.profile_picture = "https://t3.ftcdn.net/jpg/04/43/94/64/360_F_443946416_l2xXrFoIuUkItmyscOK5MNh6h0Vai3Ua.jpg"
+                if json['bio']:
+                    currentUser.bio = json['bio']
+                else:
+                    currentUser.bio = "Beloved member of the flock"
+                currentUser.country = json['country']
+
+                db.session.commit()
+
+                response = make_response(
+                    currentUser.to_dict(),
+                    200,
+                )
+
+                return response
+            
+            except Exception as err:
+                return {"error": [str(err)]}, 401
         
         else:
-            return {
-                    "error": "user not logged in"
-                }, 401
+            return {"error": "You are not logged in to complete this step"}, 401
         
+class DeleteAccount(Resource):
+    
+    def delete(self):
+
+        if session.get("user_id"):
+
+            try:
+
+                user_id = session["user_id"]
+
+                currentUser = User.query.filter_by(id=user_id).first()
+
+                currentUser.delete()
+
+                db.session.commit()
+
+                return {}, 204
+            
+            except Exception as err:
+                return {"error": [str(err)]}, 401
+        
+        else:
+            return {"error": "You are not logged in to complete this step"}, 401        
 
 class Users(Resource):
 
     def get(self):
 
-        response_dict_list = [n.to_dict() for n in User.query.all()]
+        try:
 
-        response = make_response(
-            response_dict_list,
-            200,
-        )
-
-        return response
-
-class UserByID(Resource):
-
-    def get(self, id):
-
-        response_dict = User.query.filter_by(id=id).first().to_dict()
-
-        response = make_response(
-            response_dict,
-            200,
-        )
-
-        return response
-    
-class Toys(Resource):
-
-    def get(self):
-
-        # if session.get("user_id"):
-
-            response_dict_list = [n.to_dict() for n in Toy.query.all()]
+            response_dict_list = [n.to_dict() for n in User.query.all()]
 
             response = make_response(
                 response_dict_list,
@@ -177,52 +184,117 @@ class Toys(Resource):
 
             return response
         
-        # else:
-        #     return {
-        #             "error": "user not logged in"
-        #         }, 401
+        except Exception as err:
+                return {"error": [str(err)]}, 401
+
+class UserByID(Resource):
+
+    def get(self, id):
+
+        try:
+
+            response_dict = User.query.filter_by(id=id).first().to_dict()
+
+            response = make_response(
+                response_dict,
+                200,
+            )
+
+            return response
+        
+        except Exception as err:
+                return {"error": [str(err)]}, 401
+    
+class Home(Resource):
+
+    def get(self):
+
+        if session.get("user_id"):
+
+            try:
+
+                response_dict = {
+                    "message": "Welcome to the nest",
+                }
+
+                response = make_response(
+                    response_dict,
+                    200
+                )
+
+                return response
+            
+            except Exception as err:
+                return {"error": [str(err)]}, 401
+        
+        else:
+            return {"error": "You are not logged in to complete this step"}, 401 
+    
+class Toys(Resource):
+
+    def get(self):
+
+        if session.get("user_id"):
+
+            try:
+
+                response_dict_list = [n.to_dict() for n in Toy.query.all()]
+
+                response = make_response(
+                    response_dict_list,
+                    200,
+                )
+
+                return response
+            
+            except Exception as err:
+                return {"error": [str(err)]}, 401
+        
+        else:
+            return {"error": "You are not logged in to complete this step"}, 401 
 
     def post(self):
 
         if session.get("user_id"):
 
-            json = request.get_json()
+            try:
 
-            form_age_ranges = json.get('age_ranges')
-            database_age_ranges = AgeRange.query.all()
+                json = request.get_json()
 
-            new_record = Toy(
-                name=json['name'],
-                image_url=json['image_url'],
-                brand=json['brand'],
-                description=json['description'],
-                link=json['link'],
-                user_id=session["user_id"]
-            )
+                form_age_ranges = json.get('age_ranges')
+                database_age_ranges = AgeRange.query.all()
 
-            for form_age_range in form_age_ranges:
-                for database_age_range in database_age_ranges:
-                    if form_age_range == database_age_range.age:
-                        new_record.age_ranges.append(database_age_range)
+                new_record = Toy(
+                    name=json['name'],
+                    image_url=json['image_url'],
+                    brand=json['brand'],
+                    description=json['description'],
+                    link=json['link'],
+                    user_id=session["user_id"]
+                )
 
-            db.session.add(new_record)
-            db.session.commit()
+                for form_age_range in form_age_ranges:
+                    for database_age_range in database_age_ranges:
+                        if form_age_range == database_age_range.age:
+                            new_record.age_ranges.append(database_age_range)
 
-            response_dict = new_record.to_dict()
+                db.session.add(new_record)
+                db.session.commit()
 
-            response = make_response(
-                response_dict,
-                201,
-            )
+                response_dict = new_record.to_dict()
 
-            return response
+                response = make_response(
+                    response_dict,
+                    201,
+                )
+
+                return response
+            
+            except Exception as err:
+                return {"error": [str(err)]}, 401
         
         else:
-            return {
-                    "error": "user not logged in"
-                }, 401
-
-        
+            return {"error": "You are not logged in to complete this step"}, 401 
     
 class ToyByID(Resource):
 
@@ -230,19 +302,22 @@ class ToyByID(Resource):
     
         if session.get("user_id"):
 
-            response_dict = Toy.query.filter_by(id=id).first().to_dict()
+            try:
 
-            response = make_response(
-                response_dict,
-                200,
-            )
+                response_dict = Toy.query.filter_by(id=id).first().to_dict()
 
-            return response
+                response = make_response(
+                    response_dict,
+                    200,
+                )
+
+                return response
+            
+            except Exception as err:
+                return {"error": [str(err)]}, 401
             
         else:
-            return {
-                    "error": "user not logged in"
-                }, 401
+            return {"error": "You are not logged in to complete this step"}, 401 
     
 class AgeRanges(Resource):
 
@@ -250,19 +325,22 @@ class AgeRanges(Resource):
 
         if session.get("user_id"):
 
-            response_dict_list = [n.to_dict() for n in AgeRange.query.all()]
+            try:
 
-            response = make_response(
-                response_dict_list,
-                200,
-            )
+                response_dict_list = [n.to_dict() for n in AgeRange.query.all()]
 
-            return response
+                response = make_response(
+                    response_dict_list,
+                    200,
+                )
+
+                return response
+            
+            except Exception as err:
+                return {"error": [str(err)]}, 401
             
         else:
-            return {
-                    "error": "user not logged in"
-                }, 401
+            return {"error": "You are not logged in to complete this step"}, 401
     
 class AgeRangeByID(Resource):
 
@@ -270,19 +348,22 @@ class AgeRangeByID(Resource):
     
         if session.get("user_id"):
 
-            response_dict = AgeRange.query.filter_by(id=id).first().to_dict()
+            try:
 
-            response = make_response(
-                response_dict,
-                200,
-            )
+                response_dict = AgeRange.query.filter_by(id=id).first().to_dict()
 
-            return response
+                response = make_response(
+                    response_dict,
+                    200,
+                )
+
+                return response
+            
+            except Exception as err:
+                return {"error": [str(err)]}, 401
                 
         else:
-            return {
-                    "error": "user not logged in"
-                }, 401
+            return {"error": "You are not logged in to complete this step"}, 401 
     
 class Reviews(Resource):
 
@@ -290,45 +371,55 @@ class Reviews(Resource):
 
         if session.get("user_id"):
 
-            response_dict_list = [n.to_dict() for n in Review.query.all()]
+            try:
 
-            response = make_response(
-                response_dict_list,
-                200,
-            )
+                response_dict_list = [n.to_dict() for n in Review.query.all()]
 
-            return response
+                response = make_response(
+                    response_dict_list,
+                    200,
+                )
+
+                return response
+            
+            except Exception as err:
+                return {"error": [str(err)]}, 401
                 
         else:
-            return {
-                    "error": "user not logged in"
-                }, 401
+            return {"error": "You are not logged in to complete this step"}, 401 
 
     def post(self):
 
         if session.get("user_id"):
 
-            new_record = Review(
-            title=request.form['title'],
-            text=request.form['text']
-            )
+            try:
 
-            db.session.add(new_record)
-            db.session.commit()
+                json = request.get_json()
 
-            response_dict = new_record.to_dict()
+                new_record = Review(
+                title=json['title'],
+                body=json['body'],
+                toy_id=json['toy_id'],
+                user_id=session["user_id"]
+                )
 
-            response = make_response(
-                response_dict,
-                201,
-            )
+                db.session.add(new_record)
+                db.session.commit()
 
-            return response
+                response_dict = new_record.to_dict()
+
+                response = make_response(
+                    response_dict,
+                    201,
+                )
+
+                return response
+            
+            except Exception as err:
+                return {"error": [str(err)]}, 401
                 
         else:
-            return {
-                    "error": "user not logged in"
-                }, 401
+            return {"error": "You are not logged in to complete this step"}, 401 
         
     
 class ReviewByID(Resource):
@@ -337,27 +428,32 @@ class ReviewByID(Resource):
     
         if session.get("user_id"):
 
-            response_dict = Review.query.filter_by(id=id).first().to_dict()
+            try:
 
-            response = make_response(
-                response_dict,
-                200,
-            )
+                response_dict = Review.query.filter_by(id=id).first().to_dict()
 
-            return response
+                response = make_response(
+                    response_dict,
+                    200,
+                )
+
+                return response
+            
+            except Exception as err:
+                    return {"error": [str(err)]}, 401
                 
         else:
-            return {
-                    "error": "user not logged in"
-                }, 401
+            return {"error": "You are not logged in to complete this step"}, 401 
 
-api.add_resource(Signup, '/signup')
 api.add_resource(CheckSession, '/check_session')
+api.add_resource(Signup, '/signup')
 api.add_resource(Login, '/login')
 api.add_resource(Logout, '/logout')
-api.add_resource(Home, '/')
+api.add_resource(EditAccount, '/edit_account')
+api.add_resource(DeleteAccount, '/delete_account')
 api.add_resource(Users, '/users')
 api.add_resource(UserByID, '/users/<int:id>')
+api.add_resource(Home, '/')
 api.add_resource(Toys, '/toys')
 api.add_resource(ToyByID, '/toys/<int:id>')
 api.add_resource(AgeRanges, '/age_ranges')

@@ -8,6 +8,7 @@ from sqlalchemy.orm import validates
 import validators
 from sqlalchemy.ext.hybrid import hybrid_property
 from email_validator import validate_email, EmailNotValidError
+# Enoch Can i use this?
 from sqlalchemy.exc import IntegrityError
 
 metadata = MetaData(naming_convention={
@@ -38,9 +39,9 @@ class User(db.Model, SerializerMixin):
     lastname = db.Column(db.String)
     email = db.Column(db.String, unique=True)
     _password_hash = db.Column(db.String, nullable=False)
-    profile_picture = db.Column(db.String, nullable=True, default="https://t4.ftcdn.net/jpg/00/64/67/63/360_F_64676383_LdbmhiNM6Ypzb3FM4PPuFP9rHe7ri8Ju.jpg")
-    bio = db.Column(db.String, nullable=True)
-    country = db.Column(db.String)
+    profile_picture = db.Column(db.String, nullable=True, default="https://t3.ftcdn.net/jpg/04/43/94/64/360_F_443946416_l2xXrFoIuUkItmyscOK5MNh6h0Vai3Ua.jpg")
+    bio = db.Column(db.String, nullable=True, default="Proud member of the flock!")
+    country = db.Column(db.String, nullable=False)
 
     @hybrid_property
     def password_hash(self):
@@ -65,11 +66,24 @@ class User(db.Model, SerializerMixin):
     serialize_rules = ('-toys.user', '-toys.reviews.user', '-toys.age_ranges', '-reviews.user', '-reviews.toy', '-toys.user_id', '-_password_hash')
 
     # Constraints
+    @validates('firstname')
+    def validate_firstname(self, key, firstname):
+        if len(firstname) > 50:
+            raise ValueError("Firstname name has 50 character limit")
+        return firstname
+    
+    @validates('lastname')
+    def validate_lastname(self, key, lastname):
+        if len(lastname) > 50:
+            raise ValueError("Lastname name has 50 character limit")
+        return lastname
+    
     @validates('email')
     def validate_email(self, key, email):
-        existing_user = User.query.filter_by(email=email).first()
+        existing_user = User.query.filter(User.id != self.id, User.email == email).first()
         if existing_user:
-            raise IntegrityError("An account associated with this email address already exists.")
+            # enoch i want this to be an integrity one
+            raise ValueError("An account associated with this email address already exists")
         if not validate_email(email):
             raise EmailNotValidError
         return email
@@ -78,8 +92,11 @@ class User(db.Model, SerializerMixin):
     def validate_link(self, key, profile_picture):
 
         if not validators.url(profile_picture):
-            raise ValueError("Invalid profile picture URL")
+            raise ValueError("Invalid profile picture link. Try again")
         return profile_picture
+    
+    def delete(self):
+        db.session.delete(self)
 
 class Toy(db.Model, SerializerMixin):
     __tablename__ = 'toys'
@@ -91,7 +108,7 @@ class Toy(db.Model, SerializerMixin):
     image_url = db.Column(db.String) 
     brand = db.Column(db.String)
     description = db.Column(db.String)
-    link = db.Column(db.String)
+    link = db.Column(db.String, unique=True)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
 
     # Relationships
@@ -106,32 +123,32 @@ class Toy(db.Model, SerializerMixin):
     @validates('name')
     def validate_name(self, key, name):
         if len(name) > 50:
-            raise ValueError("Input may not exceed 50 characters")
+            raise ValueError("Toy name has 50 character limit")
         return name
     
     @validates('image_url')
     def validate_image_url(self, key, image_url):
         if image_url:
             if not validators.url(image_url):
-                raise ValueError("Invalid image URL")
+                raise ValueError("Invalid image link")
         return image_url
     
     @validates('brand')
     def validate_brand(self, key, brand):
         if len(brand) > 50:
-            raise ValueError("Input may not exceed 50 characters")
+            raise ValueError("Brand name has 50 character limit")
         return brand
     
     @validates('description')
     def validate_description(self, key, description):
         if len(description) > 350:
-            raise ValueError("Description may not exceed 250 characters")
+            raise ValueError("Description has 250 character limit")
         return description
     
     @validates('link')
     def validate_link(self, key, link):
         if not validators.url(link):
-            raise ValueError("Invalid toy URL")
+            raise ValueError("Invalid toy link")
         return link
 
 class AgeRange(db.Model, SerializerMixin):
@@ -154,11 +171,11 @@ class Review(db.Model, SerializerMixin):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String)
     body = db.Column(db.String)
+    toy_id = db.Column(db.Integer, db.ForeignKey('toys.id'), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
 
     # Relationships
-    toy_id = db.Column(db.Integer, db.ForeignKey('toys.id'))
     toy = db.relationship('Toy', back_populates='reviews') 
-    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     user = db.relationship('User', back_populates='reviews') 
 
     # Serialize Rules
@@ -167,13 +184,14 @@ class Review(db.Model, SerializerMixin):
     # Constraints
     @validates('title')
     def validate_title(self, key, title):
+
         if len(title) > 50:
-            raise ValueError("Review title may not exceed 50 characters")
+            raise ValueError("Review title has 50 character limit")
         return title
     
     @validates('body')
     def validate_body(self, key, body):
         if len(body) > 250:
-            raise ValueError("Review body may not exceed 250 characters")
+            raise ValueError("Review body has 250 character limit")
         return body
 
