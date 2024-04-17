@@ -21,7 +21,7 @@ def upgrade():
     op.create_table('age_ranges',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('age', sa.String(), nullable=True),
-    sa.PrimaryKeyConstraint('id', name=op.f('pk_age_ranges'))
+    sa.primaryKeyConstraint('id', name=op.f('pk_age_ranges'))
     )
     op.create_table('users',
     sa.Column('id', sa.Integer(), nullable=False),
@@ -32,7 +32,7 @@ def upgrade():
     sa.Column('profile_picture', sa.String(), nullable=True),
     sa.Column('bio', sa.String(), nullable=True),
     sa.Column('country', sa.String(), nullable=True),
-    sa.PrimaryKeyConstraint('id', name=op.f('pk_users')),
+    sa.primaryKeyConstraint('id', name=op.f('pk_users')),
     sa.UniqueConstraint('email', name=op.f('uq_users_email'))
     )
     op.create_table('toys',
@@ -44,7 +44,7 @@ def upgrade():
     sa.Column('link', sa.String(), nullable=True),
     sa.Column('user_id', sa.Integer(), nullable=True),
     sa.ForeignKeyConstraint(['user_id'], ['users.id'], name=op.f('fk_toys_user_id_users')),
-    sa.PrimaryKeyConstraint('id', name=op.f('pk_toys'))
+    sa.primaryKeyConstraint('id', name=op.f('pk_toys'))
     )
     op.create_table('reviews',
     sa.Column('id', sa.Integer(), nullable=False),
@@ -54,14 +54,14 @@ def upgrade():
     sa.Column('user_id', sa.Integer(), nullable=True),
     sa.ForeignKeyConstraint(['toy_id'], ['toys.id'], name=op.f('fk_reviews_toy_id_toys')),
     sa.ForeignKeyConstraint(['user_id'], ['users.id'], name=op.f('fk_reviews_user_id_users')),
-    sa.PrimaryKeyConstraint('id', name=op.f('pk_reviews'))
+    sa.primaryKeyConstraint('id', name=op.f('pk_reviews'))
     )
     op.create_table('toys_age_ranges',
     sa.Column('toy_id', sa.Integer(), nullable=False),
     sa.Column('age_range_id', sa.Integer(), nullable=False),
     sa.ForeignKeyConstraint(['age_range_id'], ['age_ranges.id'], name=op.f('fk_toys_age_ranges_age_range_id_age_ranges')),
     sa.ForeignKeyConstraint(['toy_id'], ['toys.id'], name=op.f('fk_toys_age_ranges_toy_id_toys')),
-    sa.PrimaryKeyConstraint('toy_id', 'age_range_id', name=op.f('pk_toys_age_ranges'))
+    sa.primaryKeyConstraint('toy_id', 'age_range_id', name=op.f('pk_toys_age_ranges'))
     )
     # ### end Alembic commands ###
 

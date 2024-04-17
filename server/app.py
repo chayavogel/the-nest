@@ -3,6 +3,8 @@ from flask_restful import Resource
 from sqlalchemy.exc import IntegrityError
 from config import app, db, api
 from models import User, Toy, AgeRange, Review
+from dotenv import load_dotenv
+load_dotenv()
 
 class CheckSession(Resource):
                 
@@ -58,7 +60,9 @@ class Signup(Resource):
                 "id": user.id
             }
 
-            return user_dict, 201       
+            return user_dict, 201    
+        
+        #i want to be able to raise a integrity error
     
         except Exception as err:
             return {"error": [str(err)]}, 422
