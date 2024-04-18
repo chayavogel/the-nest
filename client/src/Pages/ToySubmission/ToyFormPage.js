@@ -5,7 +5,6 @@ function ToyFormPage() {
 
     return (
         <>
-        <NavBar/>
         <ToyForm/>
         </>
     )

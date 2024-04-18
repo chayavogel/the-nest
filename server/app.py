@@ -62,7 +62,7 @@ class Signup(Resource):
 
             return user_dict, 201    
         
-        #i want to be able to raise a integrity error
+        #enoch i want to be able to raise a integrity error
     
         except Exception as err:
             return {"error": [str(err)]}, 422

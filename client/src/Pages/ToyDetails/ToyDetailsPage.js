@@ -1,7 +1,6 @@
 import ToyDetailsCard from "./ToyDetailsCard"
 import { useEffect} from "react"
 import { useSelector, useDispatch } from 'react-redux'
-import NavBar from "../../NavBar"
 import { fetchToys } from "../../Slices/ToySlice"
 import { useParams } from "react-router-dom";
 
@@ -21,7 +20,6 @@ function ToyDetailsPage() {
     
     return (
         <>
-        <NavBar/>
         {toy && <ToyDetailsCard toy={toy} />}
         </>
     )

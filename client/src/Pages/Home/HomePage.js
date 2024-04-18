@@ -1,25 +1,14 @@
-import NavBar from "../../NavBar"
-import { useEffect} from "react"
-import { useSelector, useDispatch } from 'react-redux'
-import { fetchUsers } from "../../Slices/UsersSlice"
-import About from "./About"
-
 function HomePage() {
-
-    const users = useSelector(state => state.users.users)
-    const dispatch = useDispatch()
-
-    useEffect(() => {
-        dispatch(fetchUsers());
-    }, [dispatch]);
-
-    const memberCount = users.length
 
     return (
         <>
-        <NavBar/>
-        <p>Welcome</p>
-        <About memberCount={memberCount}/>
+
+        <div class="text-center" style={{ position: "relative" }}>
+            <img src="https://momcommunity.org/wp-content/uploads/2020/05/a-place-to-belong_pink.png" className="img-fluid" alt="woman carrying baby" style={{ position: "absolute", top: 0 }} />
+            <img src="https://www.infantnutritioncouncil.com/wp-content/uploads/2020/05/woman-carrying-a-baby-3242264-scaled.jpg" className="img-fluid rounded" alt="woman carrying baby" />
+        </div>
+        
+
         </>
     )
 }

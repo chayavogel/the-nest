@@ -1,28 +1,75 @@
+import { useEffect } from "react";
 import { Link } from "react-router-dom";
+import ReviewForm from "./ReviewForm";
+import { fetchReviews } from "../../Slices/ReviewsSlice";
+import { useSelector, useDispatch } from 'react-redux'
+
 
 function ToyDetailsCard( { toy } ) {
 
-    return (
-        <>
-        <p>{toy.name}</p>
-        <img src={toy.image_url} alt={toy.name} />
-        <a href={toy.link} target="_blank" rel="noopener noreferrer">Purchase</a>
-        <p>{toy.brand}</p>
-        <p>{toy.description}</p>
-        <Link to={`/user_details/${toy.user.id}`}><img src={toy.user.profile_picture} alt={toy.user.firstname + " " + toy.user.lastname} /></Link>
-        <p>{toy.user.firstname} {toy.user.lastname}</p>
-        <p>Comments</p>
-        <ul>
-          {toy.reviews.map((review) => (
-            <li key={review.id}>
-              <p>Title: {review.title}</p>
-              <p>Content: {review.body}</p>
-            </li>
-          ))}
-        </ul>
-        </>
-    );
+  const dispatch = useDispatch()
 
+  useEffect(() => {
+    dispatch(fetchReviews());
+  }, [dispatch]);
+
+  const reviews = useSelector(state => state.reviews.value)
+
+    return (
+      <>
+
+      <div className = "container text-center">
+
+        <div className = "row">
+
+          <div className="card col">
+            <img src={toy.image_url} alt={toy.name} className="card-img-top object-fit-cover border rounded" style={{ width: '100%', height: '100%', objectFit: 'cover' }}/>
+            <div className="card-body">
+              <h5 className="card-title">{toy.name}</h5>
+              <h6 className="card-subtitle mb-2 text-body-secondary">Brand: {toy.brand}</h6>
+              <button type="button" className="btn btn-primary p-0" style={{ width: '35px', height: '35px', borderRadius: '50%', overflow: 'hidden' }}>
+                    <Link to={`/user_details/${toy.user.id}`} className="card-link d-block" style={{ width: '100%', height: '100%', backgroundImage: `url(${toy.user.profile_picture})`, backgroundSize: 'cover', backgroundPosition: 'center' }}></Link>
+                </button>
+                <span className="ms-2">By {toy.user.firstname} {toy.user.lastname}</span>
+              <p className="card-text">{toy.description}</p>
+              <ul className="list-group list-group-flush">
+                {toy.age_ranges.map((age) => {
+                  return <li key={age.id} className="list-group-item">{age.age}</li>
+                })}
+              </ul>
+              <a className="btn btn-primary" href={toy.link} target="_blank" rel="noopener noreferrer">Purchase</a>
+            </div>
+          </div>
+
+          <div className="card col">
+              <div className="card-body">
+                <h5 className="card-title">Purchased the Toy? Post a Review!</h5>
+                <p className="card-text">Reviews like yours help other moms decide if this toy is right for their child</p>
+                <ReviewForm toy_id={toy.id} />
+              </div>
+          </div>
+
+        </div>
+
+      </div>
+
+      <div className="card col">
+              <div className="card-header">
+                Reviews
+              </div>
+              <ul className="list-group list-group-flush">
+                {reviews.map((review) => (
+                  <li className="list-group-item" key={review.id}>
+                    <p><strong>{review.title}</strong></p>
+                    <p><em>{review.user.firstname} {review.user.lastname}</em></p>
+                    <p>{review.body}</p>
+                  </li>
+                ))}
+              </ul>
+          </div>
+
+      </>
+    );
 }
 
 export default ToyDetailsCard

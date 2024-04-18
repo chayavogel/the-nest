@@ -1,35 +1,42 @@
 import { Outlet , useNavigate } from "react-router-dom"
 import { useSelector, useDispatch } from 'react-redux'
 import { fetchCurrentUser } from "../Slices/UsersSlice"
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 import LoginPage from "./Login/LoginPage";
+import ParentPage from "./ParentPage/ParentPage";
 
 
 function App() {
 
-  const currentUser = useSelector((state) => state.users.currentUser)
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
+  const [loading, setLoading] = useState(true);
+
+  const currentUser = useSelector((state) => state.users.currentUser)
+
   useEffect(() => {
-      dispatch(fetchCurrentUser());
+      dispatch(fetchCurrentUser())
+      .then(() => setLoading(false))
+      .catch((error) => {
+        setLoading(false);
+      });
   }, [dispatch]);
 
   function handleClick() {
     navigate("/")
   }
 
+  if (loading) {
+    return null
+  }
+
   return (
-    <>
-    <header>
-      <h1 onClick={handleClick} >The Nest</h1>
-      <p>Where moms flock</p>
-    </header>
-    { currentUser ? <Outlet /> : <LoginPage /> }
-    </>
+    <div className="container mt-4 mb-4">
+    { currentUser? <ParentPage handleClick={handleClick} /> : <LoginPage /> }
+    </div>
   );
 }
 
 export default App;
-

@@ -1,16 +1,21 @@
 function AgeRangeFilterBar( { selectedAgeRanges, setSelectedAgeRanges }) {
 
     function handleButtonClick(e, newSelectedAgeRange) {
-        if (selectedAgeRanges.includes(newSelectedAgeRange)) {
-            const updatedAgeRanges = selectedAgeRanges.filter(selectedAgeRange => selectedAgeRange !== newSelectedAgeRange)
-            setSelectedAgeRanges(updatedAgeRanges);
-        } else if (!selectedAgeRanges.includes(newSelectedAgeRange) && newSelectedAgeRange !== "all") {
-            const updatedAgeRanges = selectedAgeRanges.filter(selectedAgeRange => selectedAgeRange !== "all");
-            setSelectedAgeRanges([...updatedAgeRanges, newSelectedAgeRange]);
-        } else if (newSelectedAgeRange === "all") {
+        if (newSelectedAgeRange === "all") {
+            setSelectedAgeRanges([newSelectedAgeRange])
+        } else if (selectedAgeRanges.includes(newSelectedAgeRange) && selectedAgeRanges.length === 1) {
+            setSelectedAgeRanges(["all"])
+        } else if (selectedAgeRanges.includes(newSelectedAgeRange)) {
+            const updatedAgeRanges = selectedAgeRanges.filter(
+                selectedAgeRange => selectedAgeRange !== newSelectedAgeRange
+              );
+              setSelectedAgeRanges(updatedAgeRanges);
+        } else if (selectedAgeRanges.includes("all")) {
             setSelectedAgeRanges([newSelectedAgeRange]);
+        } else {
+            setSelectedAgeRanges([...selectedAgeRanges, newSelectedAgeRange])
         }
-    }
+      }
 
     const ageRangeOptions = [
         { value: "0-3 months" },
@@ -27,26 +32,26 @@ function AgeRangeFilterBar( { selectedAgeRanges, setSelectedAgeRanges }) {
 
     return (
 
-        <div id="ageRangeFilterButtons">
+        <div id="ageRangeFilterButtons" className="btn-group">
 
             <button 
             onClick={(e) => handleButtonClick(e, "all")}
-            className={selectedAgeRanges.includes("all") ? "active" : "inactive"}
+            className={`btn btn-light ${selectedAgeRanges.includes("all") ? 'active' : 'inactive'}`}
             > 
             All
             </button>
 
-            {ageRangeOptions.map(ageRangeOption => {
-                return (
-                <button 
-                key={ageRangeOption.value} 
-                onClick={(e) => handleButtonClick(e, ageRangeOption.value)}
-                className={selectedAgeRanges.includes(ageRangeOption.value) ? "active" : "inactive"}
+            {ageRangeOptions.map(ageRangeOption => (
+                <button
+                    key={ageRangeOption.value}
+                    className={`btn btn-light ${selectedAgeRanges.includes(ageRangeOption.value) ? 'active' : 'inactive'}`}
+                    onClick={(e) => handleButtonClick(e, ageRangeOption.value)}
+                    aria-current="page"
                 >
                     {ageRangeOption.value}
-                    </button>
-                    )
-                    })}
+                </button>
+            ))}
+
 
         </div>
     )

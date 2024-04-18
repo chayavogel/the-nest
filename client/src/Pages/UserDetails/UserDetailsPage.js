@@ -1,16 +1,16 @@
 import { useEffect } from "react";
-import UserDetailsCard from "./UserDetailsCard";
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchUsers } from "../../Slices/UsersSlice"
 import { useParams } from "react-router-dom";
-import NavBar from "../../NavBar";
+import UserDetailsCard from "./UserDetailsCard"
+import UsersToys from "./UsersToys";
 
 function UserDetailsPage() {
 
     const params = useParams();
     const userId = params.id;
     const dispatch = useDispatch();
-
+    
     useEffect(() => {
         dispatch(fetchUsers());
       }, [dispatch]);
@@ -18,11 +18,24 @@ function UserDetailsPage() {
     const user = useSelector(state =>
         state.users.users.find(user => user.id === parseInt(userId))
     );
-    
+
+    let toys
+
+    if (user) {
+        toys = user.toys
+    }
+
     return (
         <>
-        <NavBar/>
-        {user && <UserDetailsCard user={user} />}
+        <div className="row justify-content-center">
+            {user && <UserDetailsCard user={user} />}
+        </div>
+        <br/>
+
+        <div className="container text-center">
+            <h5>{user && user.firstname}'s Toys</h5>
+            {user && <UsersToys user={user} />}
+        </div>
         </>
     )
 }

@@ -5,10 +5,11 @@ import App from "./Pages/App"
 import ErrorPage from "./Pages/Error/ErrorPage";
 import HomePage from "./Pages/Home/HomePage"
 import ToyPage from "./Pages/ToyCards/ToyPage";
-import LoginPage from "./Pages/Login/LoginPage";
 import ToyDetailsPage from "./Pages/ToyDetails/ToyDetailsPage"
 import ToyFormPage from "./Pages/ToySubmission/ToyFormPage";
 import UserDetailsPage from "./Pages/UserDetails/UserDetailsPage";
+import AccountPage from "./Pages/Account/AccountPage";
+import AboutPage from "./About/AboutPage";
 
 const routes = [
   {
@@ -27,6 +28,11 @@ const routes = [
             errorElement: <ErrorPage />
           },
           {
+            path: "/about",
+            element: <AboutPage />,
+            errorElement: <ErrorPage />
+          },
+          {
             path: "/toy_details/:id",
             element: <ToyDetailsPage />,
             errorElement: <ErrorPage />
@@ -39,6 +45,11 @@ const routes = [
           {
             path: "/user_details/:id",
             element: <UserDetailsPage />,
+            errorElement: <ErrorPage />
+          },
+          {
+            path: "/account",
+            element: <AccountPage />,
             errorElement: <ErrorPage />
           }
       ]

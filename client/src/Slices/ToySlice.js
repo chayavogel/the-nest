@@ -3,11 +3,15 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 export const fetchToys = createAsyncThunk('toys/fetchToys', async () => {
   const response = await fetch("/toys")
   const data = await response.json();
-  return data
+  if (response.ok) {
+    return data;
+  } else {
+    throw new Error(data.error)
+  }
 })
 
 export const createToy = createAsyncThunk(
-  'users/createToy',
+  'toys/createToy',
    async (initialToy) => {
     const response = await fetch("/toys", {
       method: "POST",
@@ -18,7 +22,11 @@ export const createToy = createAsyncThunk(
       body: JSON.stringify(initialToy)
     })
     const data = await response.json();
-    return data;
+    if (response.ok) {
+      return data;
+    } else {
+      throw new Error(data.error)
+    }
   }
 )
 
@@ -26,10 +34,19 @@ const toysSlice = createSlice({
   name: 'toys',
   initialState: {
     status: "",
-    value: []
+    value: [],
+    error: [],
+    isSubmitted: false
   },
   reducers: {
-    // omit existing reducers here
+    createToySuccess: (state) => {
+      state.isSubmitted = true;
+      state.error = null;
+    },
+    createToyFailure: (state, action) => {
+      state.isSubmitted = false;
+      state.error = action.payload;
+    },
   },
   extraReducers(builder) {
     builder
@@ -37,8 +54,9 @@ const toysSlice = createSlice({
         state.status = 'loading'
       })
       .addCase(fetchToys.fulfilled, (state, action) => {
-        state.status = 'succeeded'
+        state.status = 'fulfilled'
         state.value = action.payload;
+        state.error = null
       })
       .addCase(fetchToys.rejected, (state, action) => {
         state.status = 'failed'
@@ -48,8 +66,9 @@ const toysSlice = createSlice({
         state.status = 'loading'
       })
       .addCase(createToy.fulfilled, (state, action) => {
-        state.status = 'succeeded'
-        state.value.push(action.payload)
+        state.status = 'fulfilled'
+        state.value.unshift(action.payload)
+        state.error = null
       })
       .addCase(createToy.rejected, (state, action) => {
         state.status = 'failed'

@@ -1,9 +1,7 @@
-// navigate to homepage only if successful or get a descriptive error
-
 import React from "react";
 import { useFormik } from "formik";
 import * as yup from "yup";
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { createUser } from "../../Slices/UsersSlice"
 import { useNavigate } from "react-router-dom";
 
@@ -12,14 +10,16 @@ function SignupForm() {
   const dispatch = useDispatch()
   const navigate = useNavigate();
 
+  const error = useSelector((state) => state.users.error)
+
   const formSchema = yup.object().shape({
-    firstname: yup.string().required("First name required").max(15),
-    lastname: yup.string().required("Last name required").max(15),
+    firstname: yup.string().required("First name required").max(15, "15 characters limit"),
+    lastname: yup.string().required("Last name required").max(15, "15 characters limit"),
     email: yup.string().email("Invalid email").required("Email address required"),
     profile_picture: yup.string().url("Invalid image url"),
     password: yup.string().required("Password required"),
     bio: yup.string().max(250),
-    country: yup.string().max(15),
+    country: yup.string().required("Country required").max(15),
   });
 
   const formik = useFormik({
@@ -35,7 +35,7 @@ function SignupForm() {
     validationSchema: formSchema,
     onSubmit: async (values) => {
       await dispatch(createUser(values));
-      // formik.resetForm();
+      navigate("/")
     }
   });
 
@@ -45,96 +45,130 @@ function SignupForm() {
       <fieldset>
       <legend>Sign Up</legend>
       
-        <br />
-
-        <label htmlFor="firstname">First Name</label>
-        <br />
-        
-        <input
-            id="firstname"
-            name="firstname"
-            onChange={formik.handleChange}
-            value={formik.values.firstname}
+      <div>
+        <label 
+        htmlFor="firstname" 
+        className="form-label">
+          First name
+          </label>
+        <input 
+        type="text" 
+        className={`form-control ${formik.touched.firstname && formik.errors.firstname ? 'is-invalid' : ''}`} 
+        id="firstname"
+        name="firstname"
+        onChange={formik.handleChange}
+        value={formik.values.firstname}
         />
-        <p>{formik.errors.firstname}</p>
+        {formik.touched.firstname && formik.errors.firstname && <div className="invalid-feedback">{formik.errors.firstname}</div>}
+      </div>
 
-        <br />
-
-        <label htmlFor="lastname">Last Name</label>
-        <br />
-        <input
-            id="lastname"
-            name="lastname"
-            onChange={formik.handleChange}
-            value={formik.values.lastname}
+      <div>
+        <label 
+        htmlFor="lastname" 
+        className="form-label">
+          Last name
+          </label>
+        <input 
+        type="text" 
+        className={`form-control ${formik.touched.lastname && formik.errors.lastname ? 'is-invalid' : ''}`} 
+        id="lastname"
+        name="lastname"
+        onChange={formik.handleChange}
+        value={formik.values.lastname}
         />
-        <p>{formik.errors.lastname}</p>
+        {formik.touched.lastname && formik.errors.lastname && <div className="invalid-feedback">{formik.errors.lastname}</div>}
+      </div>
 
-        <br />
-        
-        <label htmlFor="email-signup">Email Address</label>
-        <br />
-        <input
-            id="email-signup"
-            name="email"
-            onChange={formik.handleChange}
-            value={formik.values.email}
+      <div className={`mb-3 ${formik.touched.email && formik.errors.email ? 'is-invalid' : ''}`}>
+        <label 
+        htmlFor="email" 
+        className="form-label">
+          Email
+          </label>
+        <input 
+        type="email" 
+        className={`form-control ${formik.touched.email && formik.errors.email ? 'is-invalid' : ''}`} 
+        id="email"
+        name="email"
+        onChange={formik.handleChange}
+        value={formik.values.email}
         />
-        <p>{formik.errors.email}</p>
+        {formik.touched.email && formik.errors.email && <div className="invalid-feedback">{formik.errors.email}</div>}
+      </div>
 
-        <br />
-
-        <label htmlFor="password-signup">Password</label>
-        <br />
-        <input
-            id="password-signup"
-            name="password"
-            type="password"
-            onChange={formik.handleChange}
-            value={formik.values.password}
+      <div>
+        <label 
+        htmlFor="password" 
+        className="form-label">
+          Password
+          </label>
+        <input 
+        type="password" 
+        className={`form-control ${formik.touched.password && formik.errors.password ? 'is-invalid' : ''}`} 
+        id="password"
+        name="password"
+        onChange={formik.handleChange}
+        value={formik.values.password}
         />
-        <p>{formik.errors.password}</p>
+        {formik.touched.password && formik.errors.password && <div className="invalid-feedback">{formik.errors.password}</div>}
+      </div>
 
-        <br />
-
-        <label htmlFor="profile_picture">Profile 
-        picture</label>
-        <br />
-        <input
-            id="profile_picture"
-            name="profile_picture"
-            onChange={formik.handleChange}
-            value={formik.values.profile_picture}
+      <div>
+        <label 
+        htmlFor="profile_picture" 
+        className="form-label">
+          Profile Picture
+          </label>
+        <input 
+        type="text" 
+        className={`form-control ${formik.touched.profile_picture && formik.errors.profile_picture ? 'is-invalid' : ''}`} 
+        id="profile_picture"
+        name="profile_picture"
+        onChange={formik.handleChange}
+        value={formik.values.profile_picture}
+        placeholder="Enter image url"
         />
-        <p>{formik.errors.profile_picture}</p>
+        <div className="form-text">Optional, can complete later</div>
+        {formik.touched.profile_picture && formik.errors.profile_picture && <div className="invalid-feedback">{formik.errors.profile_picture}</div>}
+      </div>
 
-        <br />
-
-        <label htmlFor="bio">Bio</label>
-        <br />
-        <input
-            id="bio"
-            name="bio"
-            onChange={formik.handleChange}
-            value={formik.values.bio}
+      <div>
+        <label 
+        htmlFor="bio" 
+        className="form-label">
+          Bio
+          </label>
+        <textarea 
+        className={`form-control ${formik.touched.bio && formik.errors.bio ? 'is-invalid' : ''}`} 
+        id="bio"
+        name="bio"
+        onChange={formik.handleChange}
+        value={formik.values.bio}
         />
-        <p>{formik.errors.bio}</p>
+        <div className="form-text">Optional, can complete later</div>
+        {formik.touched.bio && formik.errors.bio && <div className="invalid-feedback">{formik.errors.bio}</div>}
+      </div>
 
-        <br />
-
-        <label htmlFor="country">Country</label>
-        <br />
-        <input
-            id="country"
-            name="country"
-            onChange={formik.handleChange}
-            value={formik.values.country}
+      <div>
+        <label 
+        htmlFor="country" 
+        className="form-label">
+          Country
+          </label>
+        <input 
+        type="text" 
+        className={`form-control ${formik.touched.country && formik.errors.country ? 'is-invalid' : ''}`} 
+        id="country"
+        name="country"
+        onChange={formik.handleChange}
+        value={formik.values.country}
         />
-        <p>{formik.errors.country}</p>
+        {formik.touched.country && formik.errors.country && <div className="invalid-feedback">{formik.errors.country}</div>}
+      </div>
 
-        <br />
+      <p className={`text-danger`}>{error === "Unexpected token 'P', \"Proxy erro\"... is not valid JSON" ? "Server Down!" : error}</p>
 
-        <button type="submit">Sign Up</button>
+      <button type="submit" className ="btn btn-primary">Sign Up</button>
 
       </fieldset>
     </form>
@@ -142,4 +176,4 @@ function SignupForm() {
   );
 };
 
-export default SignupForm
+export default SignupForm;

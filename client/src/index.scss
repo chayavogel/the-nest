@@ -1,0 +1,28 @@
+/* Your custom primary color */
+$primary: #a6937d;
+$light: #e8d1c5;
+
+/* Other Bootstrap variables */
+$body-color: #212529;
+$border-color: #e8d1c5;
+
+body {
+  background-image: url("https://t3.ftcdn.net/jpg/05/93/29/26/360_F_593292637_PlSmqUgrR2fN5OhyRAv0dUZeiJtAzXCe.jpg");
+  background-size: 15%; /* This will make the image cover the entire background */
+  background-repeat: no-repeat; /* This will prevent the image from repeating */
+  background-position: top left; /* Set background image position to top left */
+}
+
+
+@import "~bootstrap/scss/bootstrap";
+@import url("https://fonts.googleapis.com/css2?family=Alex+Brush&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&family=Sedan:ital@0;1&display=swap");
+
+header h1 {
+  font-family: "Sedan", serif;
+  cursor: pointer; /* Add pointer cursor to h1 element */
+}
+
+header h2 {
+  font-family: "Alex Brush";
+}

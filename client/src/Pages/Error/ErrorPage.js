@@ -1,18 +1,16 @@
-// get errors from backend. i don't want it display after failed login or logout
-// should i add this? window.history.back();
-
 import { useRouteError } from "react-router-dom";
 
 function ErrorPage() {
   const error = useRouteError();
-  console.error(error);
 
   return (
-    <>
-    <p>Whoops! Something went wrong!</p>
-    <p>{error.statusText}</p>
-    <button onClick={() => window.history.back()}>Go Back</button>
-    </>
+    <div className="d-flex justify-content-center align-items-center vh-100">
+      <div className="text-center">
+        <p>Looks like this page doesn't exist.</p>
+        <p><em>Error: {error.statusText}</em></p>
+        <button className="btn btn-primary" onClick={() => window.history.back()}>Go Back</button>
+      </div>
+    </div>
   );
 };
 
