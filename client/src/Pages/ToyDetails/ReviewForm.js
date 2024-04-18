@@ -1,5 +1,5 @@
 import React from 'react';
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { createReview } from "../../Slices/ReviewsSlice"
 import { useFormik } from "formik";
 import * as yup from "yup";
@@ -47,7 +47,6 @@ function ReviewForm( {toy_id}) {
                     value={formik.values.title}
                     />
                     {formik.touched.title && formik.errors.title && <div className="invalid-feedback">{formik.errors.title}</div>}
-                    </div>
                 </div>
 
                 <div className="mb-3">
@@ -66,7 +65,6 @@ function ReviewForm( {toy_id}) {
                     value={formik.values.body}
                     />
                     {formik.touched.body && formik.errors.body && <div className="invalid-feedback">{formik.errors.body}</div>}
-                    </div>
                 </div>
                     
                 <button type="submit" className="btn btn-primary">Post</button>

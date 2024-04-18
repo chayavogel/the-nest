@@ -2,7 +2,6 @@ import ToyCard from "./ToyCard";
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchToys } from "../../Slices/ToySlice";
-import NavBar from "../../NavBar";
 import AgeRangeFilterBar from "./AgeRangeFilterBar";
 
 function ToyPage() {

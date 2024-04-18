@@ -1,6 +1,3 @@
-// Does the route for login make sense?
-// add a way to logout
-
 import App from "./Pages/App"
 import ErrorPage from "./Pages/Error/ErrorPage";
 import HomePage from "./Pages/Home/HomePage"

@@ -2,7 +2,7 @@ function About( {memberCount} ) {
 
     return (
         <>
-        <img src="https://momcommunity.org/wp-content/uploads/2020/05/about-us.png"/>
+        <img src="https://momcommunity.org/wp-content/uploads/2020/05/about-us.png" alt="text where we all belong"/>
 
         <p>Hi there! Welcome to The Nest, where every mom finds support, sisterhood, and a sense of belonging. A vibrant community where moms from all walks of life come together to share their experiences, exchange advice, and nurture each other's journey through motherhood.</p>
 
