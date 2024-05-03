@@ -66,7 +66,7 @@ function ToyForm() {
     return (
         <form onSubmit={formik.handleSubmit}>
             <fieldset>
-                <legend>Post a Toy</legend>
+                {/* <legend>Post a Toy</legend> */}
 
                 <div className="row g-3">
                     <div className="col-md-4">

@@ -36,6 +36,13 @@ function ToyPage() {
 
     return (
         <>
+            <div className="container text-center">
+               <h3>Toy Recommendations</h3>
+               <p>There are so many options, but which toys will your child actually enjoy and are right for their age and stage? View what your friends recommend!</p>
+            </div>
+
+            <br/>
+
             <div className="text-center"> 
                 <AgeRangeFilterBar 
                     selectedAgeRanges={selectedAgeRanges}

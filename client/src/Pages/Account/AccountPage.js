@@ -3,7 +3,6 @@ import { useEffect } from 'react'
 import { fetchCurrentUser } from "../../Slices/UsersSlice"
 import AccountDetails from './Account Details'
 import EditAccountForm from './EditAccountForm'
-import NavBar from '../../NavBar'
 import { deleteAccount } from '../../Slices/UsersSlice'
 
 function AccountPage() {
@@ -22,6 +21,12 @@ function AccountPage() {
 
     return (
         <>
+
+        <div className="container text-center">
+            <h3>Account</h3>
+        </div>
+
+        <br/>
 
         <div className="d-flex justify-content-center">
         <AccountDetails user={currentUser}/>

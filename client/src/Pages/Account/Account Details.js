@@ -1,7 +1,7 @@
 function AccountDetails( {user} ) {
     return (
         <>
-
+        
         <div className="card" style={{ width: "20rem" }}>
         <img src={user.profile_picture} className="card-img-top object-fit-cover border rounded" alt={user.firstname + " " + user.lastname} />
         <div className="card-body">
