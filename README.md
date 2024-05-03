@@ -3,7 +3,7 @@ A website for moms to collaberate and view resources.
 
 ## Description
 
-This is a Flask/React application. Currently, it allows users create, edit, and delete an account, as well as to view and review others' toy recommendations, and post their own.
+This is a React/Flask application. Currently, it allows users create, edit, and delete an account, as well as to view and review others' toy recommendations, and post their own.
 
 More features such as chat rooms, baby gear recommendations, and service recommendations, are coming soon.
 
