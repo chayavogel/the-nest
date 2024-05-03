@@ -448,6 +448,15 @@ class ReviewByID(Resource):
                 
         else:
             return {"error": "You are not logged in to complete this step"}, 401 
+        
+class ToyReviews(Resource):
+
+    def get(self, n):
+
+        filtered_toys = [toy.to_dict() for toy in Toy.query.all() if len(toy.reviews) >= n]
+
+        return filtered_toys, 201
+
 
 api.add_resource(CheckSession, '/check_session')
 api.add_resource(Signup, '/signup')
@@ -464,6 +473,7 @@ api.add_resource(AgeRanges, '/age_ranges')
 api.add_resource(AgeRangeByID, '/age_ranges/<int:id>')
 api.add_resource(Reviews, '/reviews')
 api.add_resource(ReviewByID, '/reviews/<int:id>')
+api.add_resource(ToyReviews, '/toy_reviews/<int:n>')
 
 if __name__ == '__main__':
     app.run(port=5555, debug=True)
