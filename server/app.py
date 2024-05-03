@@ -1,4 +1,4 @@
-from flask import Flask, request, session, make_response
+from flask import request, session, make_response
 from flask_restful import Resource
 from sqlalchemy.exc import IntegrityError
 from config import app, db, api
@@ -62,7 +62,7 @@ class Signup(Resource):
 
             return user_dict, 201    
         
-        #enoch i want to be able to raise a integrity error
+        #i want to be able to raise a integrity error
     
         except Exception as err:
             return {"error": [str(err)]}, 422
