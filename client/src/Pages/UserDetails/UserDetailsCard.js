@@ -1,8 +1,4 @@
-import UsersToyCard from "./UsersToyCard";
-
 function UserDetailsCard( {user} ) {
-
-    const toys = user.toys
 
     return (
         <>

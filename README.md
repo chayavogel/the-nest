@@ -32,3 +32,7 @@ Seed the database: Python server/seed.py
 Run the back end: python server/app.py
 
 In a different tab in your terminal, navigate to the client directory. Run the front end: npm start
+
+## Walk Through
+
+https://youtu.be/wZXWF5YK5kQ

@@ -13,7 +13,8 @@ function ToyDetailsCard( { toy } ) {
     dispatch(fetchReviews());
   }, [dispatch]);
 
-  const reviews = useSelector(state => state.reviews.value)
+  const allReviews = useSelector(state => state.reviews.value)
+  const reviews = allReviews.filter(review => review.toy.id == toy.id)
 
   console.log(toy)
 
@@ -54,22 +55,32 @@ function ToyDetailsCard( { toy } ) {
         </div>
 
       </div>
-
+      
       <div className="card col">
-              <div className="card-header">
-                Reviews
-              </div>
-              <ul className="list-group list-group-flush">
-                {toy.reviews.map((review) => (
-                  <li className="list-group-item" key={review.id}>
-                    <p><strong>{review.title}</strong></p>
-                    <p><em>{review.user.firstname} {review.user.lastname}</em></p>
-                    <p>{review.body}</p>
-                  </li>
-                ))}
-              </ul>
-          </div>
-
+        <div className="card-header">
+          Reviews
+        </div>
+        {reviews && reviews.length > 0 ?
+        <ul className="list-group list-group-flush">
+        {reviews.map((review) => (
+          <li className="list-group-item" key={review.id}>
+            <p><strong>{review.title}</strong></p>
+            <p><em>{review.user.firstname} {review.user.lastname}</em></p>
+            <p>{review.body}</p>
+          </li>
+        ))}
+        </ul>
+      :
+      <ul>
+        <br/>
+        <li className="list-group-item">
+            <p><em>Be the first to leave a review!</em></p>
+        </li>
+      </ul>
+      } 
+        
+      </div>
+      
       </>
     );
 }

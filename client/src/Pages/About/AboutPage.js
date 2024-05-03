@@ -1,7 +1,6 @@
-import NavBar from "../NavBar"
 import { useEffect} from "react"
 import { useSelector, useDispatch } from 'react-redux'
-import { fetchUsers } from "../Slices/UsersSlice"
+import { fetchUsers } from "../../Slices/UsersSlice"
 import About from "./About"
 
 function AboutPage() {

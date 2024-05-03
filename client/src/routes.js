@@ -6,7 +6,7 @@ import ToyDetailsPage from "./Pages/ToyDetails/ToyDetailsPage"
 import ToyFormPage from "./Pages/ToySubmission/ToyFormPage";
 import UserDetailsPage from "./Pages/UserDetails/UserDetailsPage";
 import AccountPage from "./Pages/Account/AccountPage";
-import AboutPage from "./About/AboutPage";
+import AboutPage from "./Pages/About/AboutPage"
 
 const routes = [
   {
