@@ -1,5 +1,5 @@
 # The Nest
-## A website for moms to collaberate and view resources.
+A website for moms to collaberate and view resources.
 
 ## Description
 
