@@ -29,7 +29,7 @@ Activate the Virtual Environment: Pipenv shell
 
 Seed the database: Python server/seed.py
 
-Run the back end: python server/app.py
+Run the server: python server/app.py
 
 In a different tab in your terminal, navigate to the client directory. Run the front end: npm start
 
