@@ -2,7 +2,6 @@ import { useFormik } from "formik";
 import * as yup from "yup";
 import { useDispatch } from 'react-redux';
 import { createToy } from "../../Slices/ToySlice";
-import { useState } from "react";
 
 function ToyForm() {
     const dispatch = useDispatch();
