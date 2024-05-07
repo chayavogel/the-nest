@@ -1,3 +1,7 @@
+@import "~bootstrap/scss/bootstrap";
+@import url("https://fonts.googleapis.com/css2?family=Alex+Brush&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&family=Sedan:ital@0;1&display=swap");
+
 /* Your custom primary color */
 $primary: #a6937d;
 $light: #e8d1c5;
@@ -12,11 +16,6 @@ body {
   background-repeat: no-repeat; /* This will prevent the image from repeating */
   background-position: top left; /* Set background image position to top left */
 }
-
-
-@import "~bootstrap/scss/bootstrap";
-@import url("https://fonts.googleapis.com/css2?family=Alex+Brush&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&family=Sedan:ital@0;1&display=swap");
 
 header h1 {
   font-family: "Sedan", serif;
