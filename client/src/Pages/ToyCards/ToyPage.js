@@ -9,12 +9,13 @@ function ToyPage() {
     const dispatch = useDispatch();
 
     const [selectedAgeRanges, setSelectedAgeRanges] = useState(["all"]);
+    const [filterText, setFilterText] = useState('');
 
     useEffect(() => {
         dispatch(fetchToys());
     }, [dispatch]);
 
-    let filteredToys = [];
+    let filteredToys = toys || [];
 
     if (toys) {
         if (selectedAgeRanges == "all") {
@@ -34,11 +35,17 @@ function ToyPage() {
         }
     } 
 
+    if (filterText) {
+        filteredToys = filteredToys.filter(toy => 
+            toy.name.toLowerCase().includes(filterText.toLowerCase())
+        );
+    }
+
     return (
         <>
             <div className="container text-center">
                <h3>Toy Recommendations</h3>
-               <p>There are so many options, but which toys will your child actually enjoy and are right for their age and stage? View what your friends recommend!</p>
+               <p>There are so many options, but which toys will your child actually enjoy? View what your friends have tried and tested!</p>
             </div>
 
             <br/>
@@ -47,6 +54,8 @@ function ToyPage() {
                 <AgeRangeFilterBar 
                     selectedAgeRanges={selectedAgeRanges}
                     setSelectedAgeRanges={setSelectedAgeRanges} 
+                    filterText={filterText}
+                    setFilterText={setFilterText}
                 />
             </div>
 

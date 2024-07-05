@@ -95,7 +95,7 @@ if __name__ == '__main__':
             name = "Wooden Building Set",
             image_url = "https://m.media-amazon.com/images/I/71U8VjRnoLL._AC_SX466_.jpg",
             brand = "Melissa & Doug",
-            description = "Hours of educational fun: The Melissa & Doug wooden building blocks set includes 100 durable wooden blocks in 4 different colors and 9 shapes; it’s a classic educational toy that provides hours of hands on, screen free play and learning",
+            description = "Hours of educational fun: The Melissa & Doug wooden building blocks set includes 100 durable wooden blocks in 4 different colors and 9 shapes; its a classic educational toy that provides hours of hands on, screen free play and learning",
             link = "https://www.amazon.com/Melissa-Doug-Wooden-Building-Blocks/dp/B000068CKY/ref=sr_1_1_sspa?crid=34WJK2QDRWQH1&dib=eyJ2IjoiMSJ9.IW9qyvlailnMV7x8Q7Y_SoKSBpUk_eXfUZ4PLGWZkRWyq2xpnTpm__AjB-NVzGDJGE24B8XEdj-GNK4a3H3rIeQQr_uE_Sd3rVWC5vYuIB8_IMKx_zbmvr7x-F_Tk8Uj7o5HnlSn6dS4suDEmvYivfk-H_40h-4w9mSkY1gPtVq1sZsE-u4eJP1-Ltp3wbxzcyZFOw0NiITA6S8JSeNO3N6_-NWAU1v3F9vCiYr-Xpyp7jA5Qjr_ou-PJnc__doGnXRhXInuqXfCRFylZN784rnTVATcBNDhvdD1ZC7bZzE.KRfH-T_yYiX7_n11Diye6_YvXtXGuDbzK3tup9e_H7M&dib_tag=se&keywords=blocks&qid=1713365560&sprefix=blocks%2Caps%2C83&sr=8-1-spons&sp_csd=d2lkZ2V0TmFtZT1zcF9hdGY&th=1",
             user = user1
             )
@@ -251,3 +251,5 @@ if __name__ == '__main__':
         toy1.age_ranges.append(twelve_eighteen_months)
 
         db.session.commit()
+
+        print("Seeded!")

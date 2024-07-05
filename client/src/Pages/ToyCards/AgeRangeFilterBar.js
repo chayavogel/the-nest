@@ -1,4 +1,8 @@
-function AgeRangeFilterBar( { selectedAgeRanges, setSelectedAgeRanges }) {
+function AgeRangeFilterBar( { 
+    selectedAgeRanges, 
+    setSelectedAgeRanges,
+    setFilterText 
+}) {
 
     function handleButtonClick(e, newSelectedAgeRange) {
         if (newSelectedAgeRange === "all") {
@@ -17,6 +21,10 @@ function AgeRangeFilterBar( { selectedAgeRanges, setSelectedAgeRanges }) {
         }
       }
 
+    function handleSearchChange(e) {
+        setFilterText(e.target.value)
+    }
+
     const ageRangeOptions = [
         { value: "0-3 months" },
         { value: "3-6 months" },
@@ -31,6 +39,18 @@ function AgeRangeFilterBar( { selectedAgeRanges, setSelectedAgeRanges }) {
         ];
 
     return (
+
+        <>
+
+        <div className="mb-3">
+            <input 
+            type="text" 
+            className="form-control" 
+            id="exampleFormControlInput1" 
+            placeholder="Search..."
+            onChange={(e) => handleSearchChange(e)}
+            />
+        </div>
 
         <div id="ageRangeFilterButtons" className="btn-group">
 
@@ -54,6 +74,8 @@ function AgeRangeFilterBar( { selectedAgeRanges, setSelectedAgeRanges }) {
 
 
         </div>
+
+        </>
     )
 }
 

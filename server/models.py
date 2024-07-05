@@ -121,32 +121,32 @@ class Toy(db.Model, SerializerMixin):
 
     # Constraints
     @validates('name')
-    def validate_name(self, name):
+    def validate_name(self, key, name):
         if len(name) > 50:
             raise ValueError("Toy name has 50 character limit")
         return name
     
     @validates('image_url')
-    def validate_image_url(self, image_url):
+    def validate_image_url(self, key, image_url):
         if image_url:
             if not validators.url(image_url):
                 raise ValueError("Invalid image link")
         return image_url
     
     @validates('brand')
-    def validate_brand(self, brand):
+    def validate_brand(self, key, brand):
         if len(brand) > 50:
             raise ValueError("Brand name has 50 character limit")
         return brand
     
     @validates('description')
-    def validate_description(self, description):
+    def validate_description(self, key, description):
         if len(description) > 350:
             raise ValueError("Description has 250 character limit")
         return description
     
     @validates('link')
-    def validate_link(self, link):
+    def validate_link(self, key, link):
         if not validators.url(link):
             raise ValueError("Invalid toy link")
         return link
@@ -183,14 +183,14 @@ class Review(db.Model, SerializerMixin):
 
     # Constraints
     @validates('title')
-    def validate_title(self, title):
+    def validate_title(self, key, title):
 
         if len(title) > 50:
             raise ValueError("Review title has 50 character limit")
         return title
     
     @validates('body')
-    def validate_body(self, body):
+    def validate_body(self, key, body):
         if len(body) > 250:
             raise ValueError("Review body has 250 character limit")
         return body
