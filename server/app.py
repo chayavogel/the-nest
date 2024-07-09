@@ -323,6 +323,29 @@ class ToyByID(Resource):
         else:
             return {"error": "You are not logged in to complete this step"}, 401 
     
+    def delete(self, id):
+
+        if session.get("user_id"):
+
+            try:
+
+                toy = Toy.query.filter_by(id=id, user_id=session.get("user_id")).first()
+
+                if not toy:
+                    return {"error": "Toy not found or not authorized"}, 404
+
+                db.session.delete(toy)
+                db.session.commit()
+
+                return {}, 204
+            
+            except Exception as err:
+                db.session.rollback()
+                return {"error": [str(err)]}, 401
+        
+        else:
+            return {"error": "You are not logged in to complete this step"}, 401
+    
 class AgeRanges(Resource):
 
     def get(self):

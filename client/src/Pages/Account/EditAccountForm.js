@@ -51,7 +51,7 @@ function EditAccountForm( { user } ) {
         <>
         <form onSubmit={formik.handleSubmit}>
         <fieldset>
-        <legend>Edit Account</legend>
+        <legend>Account</legend>
         
         <div className="mb-3">
         <label 
@@ -158,7 +158,7 @@ function EditAccountForm( { user } ) {
         {formik.touched.country && formik.errors.country && <div className="invalid-feedback">{formik.errors.country}</div>}
       </div>
 
-      <button type="submit" className ="btn btn-primary">Save Changes</button>
+      <button type="submit" className ="btn btn-secondary">Update Account</button>
 
         </fieldset>
         </form>
