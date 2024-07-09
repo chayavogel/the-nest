@@ -1,26 +1,12 @@
 import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { deleteToy } from "../../Slices/ToySlice";
 
 function MyToyCard({ toy }) {
+    const dispatch = useDispatch();
 
     function handleDeleteClick() {
-        fetch(`/toys/${toy.id}`, {
-            method: 'DELETE',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-        })
-        // .then(response => {
-        //     if (response.ok) {
-        //         onDelete(toy.id); // Call the onDelete prop to remove the toy from the parent component's state
-        //     } else {
-        //         response.json().then(errorData => {
-        //             console.error("Error deleting toy:", errorData);
-        //         });
-        //     }
-        // })
-        // .catch(error => {
-        //     console.error("Network error:", error);
-        // });
+        dispatch(deleteToy(toy.id));
     }
 
     return (

@@ -30,6 +30,22 @@ export const createToy = createAsyncThunk(
   }
 )
 
+export const deleteToy = createAsyncThunk(
+  'toys/deleteToy',
+  async (toyId) => {
+    const response = await fetch(`/toys/${toyId}`, {
+      method: "DELETE",
+    });
+    if (response.ok) {
+      return toyId;
+    } else {
+      const data = await response.json();
+      throw new Error(data.error);
+    }
+  }
+);
+
+
 const toysSlice = createSlice({
   name: 'toys',
   initialState: {
@@ -62,6 +78,7 @@ const toysSlice = createSlice({
         state.status = 'failed'
         state.error = action.error.message
       })
+
       .addCase(createToy.pending, (state, action) => {
         state.status = 'loading'
       })
@@ -73,6 +90,19 @@ const toysSlice = createSlice({
       .addCase(createToy.rejected, (state, action) => {
         state.status = 'failed'
         state.error = action.error.message
+      })
+
+      .addCase(deleteToy.pending, (state, action) => {
+        state.status = 'loading';
+      })
+      .addCase(deleteToy.fulfilled, (state, action) => {
+        state.status = 'fulfilled';
+        state.value = state.value.filter(toy => toy.id !== action.payload);
+        state.error = null;
+      })
+      .addCase(deleteToy.rejected, (state, action) => {
+        state.status = 'failed';
+        state.error = action.error.message;
       })
   }
 })
