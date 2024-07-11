@@ -14,6 +14,8 @@ function MyToyCards( {user} ) {
 
     let filteredToys = toys.filter(toy => toy.user.id === user.id);
 
+    console.log(filteredToys)
+
     return (
         <>
             <div className="container text-center">

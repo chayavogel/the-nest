@@ -4,7 +4,7 @@ import { fetchCurrentUser } from "../Slices/UsersSlice"
 import { useEffect, useState } from "react";
 
 import LoginPage from "./Login/LoginPage";
-import ParentPage from "./ParentPage/ParentPage";
+import Background from "./Background/Background"
 
 
 function App() {
@@ -34,7 +34,7 @@ function App() {
 
   return (
     <div className="container mt-4 mb-4">
-    { currentUser? <ParentPage handleClick={handleClick} /> : <LoginPage /> }
+    { currentUser? <Background handleClick={handleClick} /> : <LoginPage /> }
     </div>
   );
 }

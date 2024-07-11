@@ -92,47 +92,47 @@ if __name__ == '__main__':
         # add toys
 
         toy1 = Toy(
-            name = "Wooden Building Set",
-            image_url = "https://m.media-amazon.com/images/I/71U8VjRnoLL._AC_SX466_.jpg",
-            brand = "Melissa & Doug",
-            description = "Hours of educational fun: The Melissa & Doug wooden building blocks set includes 100 durable wooden blocks in 4 different colors and 9 shapes; its a classic educational toy that provides hours of hands on, screen free play and learning",
-            link = "https://www.amazon.com/Melissa-Doug-Wooden-Building-Blocks/dp/B000068CKY/ref=sr_1_1_sspa?crid=34WJK2QDRWQH1&dib=eyJ2IjoiMSJ9.IW9qyvlailnMV7x8Q7Y_SoKSBpUk_eXfUZ4PLGWZkRWyq2xpnTpm__AjB-NVzGDJGE24B8XEdj-GNK4a3H3rIeQQr_uE_Sd3rVWC5vYuIB8_IMKx_zbmvr7x-F_Tk8Uj7o5HnlSn6dS4suDEmvYivfk-H_40h-4w9mSkY1gPtVq1sZsE-u4eJP1-Ltp3wbxzcyZFOw0NiITA6S8JSeNO3N6_-NWAU1v3F9vCiYr-Xpyp7jA5Qjr_ou-PJnc__doGnXRhXInuqXfCRFylZN784rnTVATcBNDhvdD1ZC7bZzE.KRfH-T_yYiX7_n11Diye6_YvXtXGuDbzK3tup9e_H7M&dib_tag=se&keywords=blocks&qid=1713365560&sprefix=blocks%2Caps%2C83&sr=8-1-spons&sp_csd=d2lkZ2V0TmFtZT1zcF9hdGY&th=1",
+            name = "Wooden Activity Cube",
+            image_url = "https://m.media-amazon.com/images/I/615f4ZW-dFL.__AC_SX300_SY300_QL70_FMwebp_.jpg",
+            brand = fake.company(),
+            description = fake.paragraph(),
+            link = "https://www.amazon.com/bopoobo-Activity-Montessori-Educational-Developmental/dp/B0B9RQJQBB/ref=sr_1_10?crid=30JHZJMSV8R6Q&dib=eyJ2IjoiMSJ9.RoOuF0tT94YZpORtethBXouAt6JpO6ka-qQ8Tg-HsW-HxQGYMn-_E6VvoHCgHI1-3MYN9ursnnWoYrSygYvguworio9FPVQp8vRIjIm2YaDdM_g5iFhoAHd6j7PvkhlhotqrqV8-zpqoHFSng5M3YwX9BjlYwPeEC6oev8O2SPnwLSCsHZruk3KokvdMeXa55vpQW9civi6cyLu-2hMBKQ2SUnX5pjjV9zcUNfvLmlAokXUT_umuV5iWO9u0Hq_hkxgzctm6LYCFljQNS6-OB8fLuhdsGr1ICHdE519Rqgk.ZkKdRvEaBuFzCx0txwdY7-r8CU1_a4VIhZTYVF7z1LE&dib_tag=se&keywords=toys+aesthetic+neutral&qid=1720620789&sprefix=toys+aesthetic+neutral%2Caps%2C89&sr=8-10",
             user = user1
             )
         toy2 = Toy(
-            name = "Disney Toy Lightning McQueen Race Car",
-            image_url = "https://m.media-amazon.com/images/I/81ih+pdKpgL._AC_SX466_.jpg",
-            brand = "Mattel",
-            description = "Disney and Pixar's Moving Moments toy cars bring characters to life with changing expressions.",
-            link = "https://www.amazon.com/Disney-Cars-Moments-Lightning-Exclusive/dp/B0BN1449R3/ref=sr_1_18?crid=2VXYZI9POBDB5&dib=eyJ2IjoiMSJ9.a2w6297miXIpvd4c9f7MpZiWbF8XTbls51dFdxKnOtK5OIa48UEwrtNH8neivXZCPr5QarDVfoW7cvqK36Wgl4e0lKJjkTr3Jz-9719BlQz9MDqp_0OIY38iaJXTI85NNFQ4aOg2gGCF6XnH9Su4Vnp7q7b3tspNIKYXGRp-BCtf4a2UW9YdN0BhVu7vhM_HGaNAuwwV6NWEKT6VtpFXTwpbKTVeJUPwGt827LuGZ4l8sPQAU223nSvwjWs-U3HqQ6FM2mmYXXUpXuv93GCe76Y7FBA2zAMe3EqWaJLen_8.JAJOEsTlmHGLyUOFldZ8K8-kUcmaco22fVj6-xfybAc&dib_tag=se&keywords=toy%2Bcar&qid=1713365658&sprefix=toy%2Bcar%2Caps%2C120&sr=8-18&th=1",
+            name = "Shape Puzzle",
+            image_url = "https://m.media-amazon.com/images/I/61DshnvDLPL.__AC_SX300_SY300_QL70_FMwebp_.jpg",
+            brand = fake.company(),
+            description = fake.paragraph(),
+            link = "https://www.amazon.com/Mamimami-Home-Montessori-Preschool-Educational/dp/B09Z1SFZDG/ref=sr_1_5?crid=30JHZJMSV8R6Q&dib=eyJ2IjoiMSJ9.RoOuF0tT94YZpORtethBXouAt6JpO6ka-qQ8Tg-HsW-HxQGYMn-_E6VvoHCgHI1-3MYN9ursnnWoYrSygYvguworio9FPVQp8vRIjIm2YaDdM_g5iFhoAHd6j7PvkhlhotqrqV8-zpqoHFSng5M3YwX9BjlYwPeEC6oev8O2SPnwLSCsHZruk3KokvdMeXa55vpQW9civi6cyLu-2hMBKQ2SUnX5pjjV9zcUNfvLmlAokXUT_umuV5iWO9u0Hq_hkxgzctm6LYCFljQNS6-OB8fLuhdsGr1ICHdE519Rqgk.ZkKdRvEaBuFzCx0txwdY7-r8CU1_a4VIhZTYVF7z1LE&dib_tag=se&keywords=toys%2Baesthetic%2Bneutral&qid=1720620745&sprefix=toys%2Baesthetic%2Bneutral%2Caps%2C89&sr=8-5&th=1",
             user = user1
             )
         toy3 = Toy(
-            name = fake.word(ext_word_list=['Ball', 'Doll', 'Car', 'Blocks']),
-            image_url = "https://www.ikea.com/us/en/images/products/kramig-soft-toy-white-black__0162448_pe317642_s5.jpg?f=s",
+            name = "Play Tunnel",
+            image_url = "https://m.media-amazon.com/images/I/61YgpcDkZoL._AC_SX466_.jpg",
             brand = fake.company(),
             description = fake.paragraph(),
-            link = "https://lovevery.com/products/the-play-kits-the-looker",
+            link = "https://www.amazon.com/Sprouts-Tunnel-Eco-Friendly-Recycled-Fabric/dp/B0D5Z45T5M/ref=sr_1_8?crid=26SSSLB29GWAG&dib=eyJ2IjoiMSJ9.anbod-PZt60humHTMx2pt8L2S_Y94OezccTQlGMBsEE7aqOaN69s2QrKZxnTryUrQsKzd7d0d-oUaO7odD3DP5PKAlL4C-PDGE5NerDM6R7arkUZdqVHFA27pbm7xG9xy3xDTXj-78pKjeNEPYamWMAmnyq0451nG5XMJmk4kl_K9t8fq76EiR-YsG0SIgprZWLbe2DoO52nvWG6rL3D5pSEEIwvUuZ9dn2KtVuS_ixWKhT9RRXRFTXiDkq3EtA-D1zbJbwL3ISpkqmbgvG3sz8O2rBY3T7Wvqb_VLQ8zSM.DMLyNo_3ystlLo8x5r8AxpL-pTRoEtG9t4C6WRH_1l4&dib_tag=se&keywords=tunnel%2Bneutral%2Bcolors&qid=1720620681&sprefix=tunnel%2Bneutral%2Bcolor%2Caps%2C89&sr=8-8&th=1",
             user = user3
             )
         toy4 = Toy(
-            name = fake.word(ext_word_list=['Ball', 'Doll', 'Car', 'Blocks']),
-            image_url = "https://www.happity.co.uk/blog/wp-content/uploads/2021/03/toys-for-babies-with-eczema.png",
+            name = "Musical Instruments",
+            image_url = "https://m.media-amazon.com/images/I/71kr6VsQjuL.__AC_SX300_SY300_QL70_FMwebp_.jpg",
             brand = fake.company(),
             description = fake.paragraph(),
-            link = "https://lovevery.com/products/the-play-kits-the-looker",
+            link = "https://www.amazon.com/Musical-Instruments-Joyreal-Toddlers1-3-Kids/dp/B0CTY41WC3/ref=sr_1_4_sspa?crid=2GFR6O4EA8I9U&dib=eyJ2IjoiMSJ9.g-mZ5qtNaMS8ZovoOQxuGdMaxec34cZpqhORITwvss6FQcRm45prIsLsldCmuF0JA3-MSQuleQUKCg72xKZ_1KfAMSuNeygTsbCHCSWxI7qxz1aymuvWDTbuQazExy1Qj23joN6L_omhcds4VfoUI5atKUAwUG-oYAO_rejBo4sNmARgg_ase5m4No2-Eizy-jktBiTac2ZQvx2jk1dV58sxAWlOESgMrOg2sKEM2pK9Rn4o5OWS2ufmJRZ7h6g5Qt-q03MGRZToY5JWsTnCkGdBUZ6LCi4Glr0vrnfd7PM._g5eWk-4XDz3j72Qz6zprTt4dReLhJI2bTJbncpu8Z8&dib_tag=se&keywords=aesthetic+toys&qid=1720620499&sprefix=aesthetic+toys%2Caps%2C94&sr=8-4-spons&sp_csd=d2lkZ2V0TmFtZT1zcF9hdGY&psc=1",
             user = user4
             )
         toy5 = Toy(
-            name = fake.word(ext_word_list=['Ball', 'Doll', 'Car', 'Blocks']),
-            image_url = "https://media.istockphoto.com/id/1322274556/photo/collection-of-different-toys-on-wooden-table.webp?b=1&s=612x612&w=0&k=20&c=Ca8C2DdELsvx-KLQuyM2epAMJ3J2jyFretjB1IMtN8c=",
+            name = "Wooden Train Set",
+            image_url = "https://m.media-amazon.com/images/I/51veAwM3auL._AC_SX466_.jpg",
             brand = fake.company(),
             description = fake.paragraph(),
-            link = "https://lovevery.com/products/the-play-kits-the-looker",
+            link = "https://www.amazon.com/ibwaae-Wooden-Numbers-Toddler-Brithday/dp/B0BPS8T6VH/ref=sr_1_19_sspa?crid=2NJ0YN1RU0GOG&dib=eyJ2IjoiMSJ9.vI37DG8_-LGmqgqq5_QlqVsocHCuRzIKrvApQxq6rtIBgBlRwr8-Dgnt-m1e3ac4gYGA2-bys5B36orhjZXR6rPGtVRjT9N4PciDHxudc8MSO47rb7kqMnfZV_dqTC9MOe56uCT2wMAnmkrah1voNh8s7nDGFy3PnjeWh-2gSlgEWoY5YWzVaf-R9FixTiwVaOEWe87SQtJtNf4HI2nbC1j82_X5eBljO1MHUFoiVcvO1p6GxXqJ2PAphVoKixLodK52yGbZS0G6xECLnJxsthdB2p7iqV7zqdtX5dWdyr8.0RSNWZi3bO7NiIzZL-oSn61MvW7FclkF-vVxRfaaiks&dib_tag=se&keywords=wooden%2Btrain%2Bset&qid=1720620344&sprefix=wooden%2Btrain%2Bset%2Caps%2C94&sr=8-19-spons&sp_csd=d2lkZ2V0TmFtZT1zcF9tdGY&th=1",
             user = user1
             )
         toy6 = Toy(
-            name = fake.word(ext_word_list=['Ball', 'Ragdoll', 'Firetruck', 'Blocks', 'Scooter', 'Play Kitchen']),
+            name = "Wooden Car",
             image_url = "https://smilingtreetoys.com/cdn/shop/products/toy-trucks-for-kids-wooden-toys-Smiling-Tree-Toys_1200x.jpg?v=1653432233",
             brand = fake.company(),
             description = fake.paragraph(),
@@ -140,19 +140,19 @@ if __name__ == '__main__':
             user = user1
             )
         toy7 = Toy(
-            name = fake.word(ext_word_list=['Ball', 'Doll', 'Car', 'Blocks']),
-            image_url = "https://www.ikea.com/us/en/images/products/kramig-soft-toy-white-black__0162448_pe317642_s5.jpg?f=s",
+            name = "Wooden Multi Shape Stacker",
+            image_url = "https://m.media-amazon.com/images/I/71krZbm1BOL.__AC_SX300_SY300_QL70_FMwebp_.jpg",
             brand = fake.company(),
             description = fake.paragraph(),
-            link = "https://lovevery.com/products/the-play-kits-the-looker",
+            link = "https://www.amazon.com/mushie-Preschool-Educational-Montessori-Original/dp/B0CVNMSCJ9/ref=sr_1_32?crid=24Y02HJ47N3E8&dib=eyJ2IjoiMSJ9.hmozJzzg-3M-j6bbShCr6zFSaoiIkiQKAdQ5ln1eGlhStaBRlDBRDkEcIGHoAaqSpjy02V4n6eBaivaoT3JcqqWHBrZnghlIHEpU9afM1dlMGeJwEu70CGU0JkRTuInqjd3eb2cjuOwCbx6lduU8j4qacJ27aN3nCBneX8WwJ8FOtLKzhFxU1oGK0Q8QkUskV5fK8TjJHwN3dbM9Vz0n1yxEWwnUSMxERPunAETttK7HleCQu3uETJnLQF7WwdDqn6ofhhA3mHMSrPrrFMY-96Xay7fA6eGgryGkydvjSXQ.Zw9JlMsj28vQgx9HGENuOa8Kq0ipOiZ_cE3k4hlrqFw&dib_tag=se&keywords=mushie%2Btoys&qid=1720620215&sprefix=mushie%2Btoys%2Caps%2C91&sr=8-32&th=1",
             user = user3
             )
         toy8 = Toy(
-            name = fake.word(ext_word_list=['Ball', 'Doll', 'Car', 'Blocks']),
-            image_url = "https://www.happity.co.uk/blog/wp-content/uploads/2021/03/toys-for-babies-with-eczema.png",
+            name = "Stacking Cups",
+            image_url = "https://m.media-amazon.com/images/I/51WvKGN6i4L._AC_SX466_.jpg",
             brand = fake.company(),
             description = fake.paragraph(),
-            link = "https://lovevery.com/products/the-play-kits-the-looker",
+            link = "https://www.amazon.com/mushie-Stacking-Cups-Denmark-Original/dp/B0858X3VDM/ref=sr_1_1_sspa?crid=24Y02HJ47N3E8&dib=eyJ2IjoiMSJ9.hmozJzzg-3M-j6bbShCr6zFSaoiIkiQKAdQ5ln1eGlhStaBRlDBRDkEcIGHoAaqSpjy02V4n6eBaivaoT3JcqqWHBrZnghlIHEpU9afM1dlMGeJwEu70CGU0JkRTuInqjd3eb2cjuOwCbx6lduU8j4qacJ27aN3nCBneX8WwJ8FOtLKzhFxU1oGK0Q8QkUskV5fK8TjJHwN3dbM9Vz0n1yxEWwnUSMxERPunAETttK7HleCQu3uETJnLQF7WwdDqn6ofhhA3mHMSrPrrFMY-96Xay7fA6eGgryGkydvjSXQ.Zw9JlMsj28vQgx9HGENuOa8Kq0ipOiZ_cE3k4hlrqFw&dib_tag=se&keywords=mushie%2Btoys&qid=1720620036&sprefix=mushie%2Btoys%2Caps%2C91&sr=8-1-spons&sp_csd=d2lkZ2V0TmFtZT1zcF9hdGY&th=1",
             user = user4
             )
         

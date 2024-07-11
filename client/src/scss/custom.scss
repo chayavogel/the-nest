@@ -1,14 +1,18 @@
-@import "~bootstrap/scss/bootstrap";
-@import url("https://fonts.googleapis.com/css2?family=Alex+Brush&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&family=Sedan:ital@0;1&display=swap");
-
 /* Your custom primary color */
 $primary: #a6937d;
 $light: #e8d1c5;
+$secondary: #e8d1c5;
 
 /* Other Bootstrap variables */
 $body-color: #212529;
-$border-color: #e8d1c5;
+$border-color: #a6937d;
+
+/* Import Bootstrap */
+@import "~bootstrap/scss/bootstrap";
+
+/* Import Google Fonts */
+@import url("https://fonts.googleapis.com/css2?family=Alex+Brush&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&family=Sedan:ital@0;1&display=swap");
 
 body {
   background-image: url("https://t3.ftcdn.net/jpg/05/93/29/26/360_F_593292637_PlSmqUgrR2fN5OhyRAv0dUZeiJtAzXCe.jpg");

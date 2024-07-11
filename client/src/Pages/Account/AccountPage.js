@@ -1,7 +1,7 @@
 import { useSelector, useDispatch } from 'react-redux'
 import { useEffect, useState } from 'react'
 import { fetchCurrentUser, deleteAccount } from "../../Slices/UsersSlice"
-import AccountDetails from './Account Details'
+import AccountDetails from './AccountDetails'
 import EditAccountForm from './EditAccountForm'
 import MyToyCards from './MyToyCards'
 
