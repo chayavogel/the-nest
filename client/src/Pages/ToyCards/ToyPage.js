@@ -17,24 +17,16 @@ function ToyPage() {
 
     let filteredToys = toys || [];
 
-    if (toys) {
-        if (selectedAgeRanges == "all") {
-            filteredToys = toys;
-        } else {
-            for (const toy of toys) {
-                for (const ageRangeObj of toy.age_ranges) {
-                    for (const selectedAgeRange of selectedAgeRanges) {
-                        if (ageRangeObj.age == selectedAgeRange) {
-                            if (!filteredToys.includes(toy)) {
-                                filteredToys.push(toy);
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    } 
+    // Filter toys based on age range selection
+    if (!selectedAgeRanges.includes("all")) {
+        filteredToys = filteredToys.filter(toy =>
+            toy.age_ranges.some(ageRangeObj =>
+                selectedAgeRanges.includes(ageRangeObj.age)
+            )
+        );
+    }
 
+    // Filter toys based on search text
     if (filterText) {
         filteredToys = filteredToys.filter(toy => 
             toy.name.toLowerCase().includes(filterText.toLowerCase())

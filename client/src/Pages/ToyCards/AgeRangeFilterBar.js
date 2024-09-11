@@ -1,28 +1,34 @@
-function AgeRangeFilterBar( { 
+import React from 'react';
+
+function AgeRangeFilterBar({ 
     selectedAgeRanges, 
     setSelectedAgeRanges,
     setFilterText 
 }) {
+    
+    function handleButtonClick(newSelectedAgeRange) {
+        setSelectedAgeRanges(prevSelectedAgeRanges => {
+            const updatedAgeRanges = (() => {
+                if (newSelectedAgeRange === "all") {
+                    return ["all"];
+                } else if (prevSelectedAgeRanges.includes(newSelectedAgeRange) && prevSelectedAgeRanges.length === 1) {
+                    return ["all"];
+                } else if (prevSelectedAgeRanges.includes(newSelectedAgeRange)) {
+                    return prevSelectedAgeRanges.filter(
+                        selectedAgeRange => selectedAgeRange !== newSelectedAgeRange
+                    );
+                } else if (prevSelectedAgeRanges.includes("all")) {
+                    return [newSelectedAgeRange];
+                } else {
+                    return [...prevSelectedAgeRanges, newSelectedAgeRange];
+                }
+            })();
+            return updatedAgeRanges;
+        });
+    }
 
-    function handleButtonClick(e, newSelectedAgeRange) {
-        if (newSelectedAgeRange === "all") {
-            setSelectedAgeRanges([newSelectedAgeRange])
-        } else if (selectedAgeRanges.includes(newSelectedAgeRange) && selectedAgeRanges.length === 1) {
-            setSelectedAgeRanges(["all"])
-        } else if (selectedAgeRanges.includes(newSelectedAgeRange)) {
-            const updatedAgeRanges = selectedAgeRanges.filter(
-                selectedAgeRange => selectedAgeRange !== newSelectedAgeRange
-              );
-              setSelectedAgeRanges(updatedAgeRanges);
-        } else if (selectedAgeRanges.includes("all")) {
-            setSelectedAgeRanges([newSelectedAgeRange]);
-        } else {
-            setSelectedAgeRanges([...selectedAgeRanges, newSelectedAgeRange])
-        }
-      }
-
-    function handleSearchChange(e) {
-        setFilterText(e.target.value)
+    function handleSearchChange({ target: { value } }) {
+        setFilterText(value);
     }
 
     const ageRangeOptions = [
@@ -36,47 +42,39 @@ function AgeRangeFilterBar( {
         { value: "4-5 years" },
         { value: "6-8 years" },
         { value: "9-12 years" }
-        ];
+    ];
 
     return (
-
         <>
+            <div className="mb-3">
+                <input 
+                    type="text" 
+                    className="form-control" 
+                    placeholder="Search..."
+                    onChange={handleSearchChange} 
+                />
+            </div>
 
-        <div className="mb-3">
-            <input 
-            type="text" 
-            className="form-control" 
-            id="exampleFormControlInput1" 
-            placeholder="Search..."
-            onChange={(e) => handleSearchChange(e)}
-            />
-        </div>
-
-        <div id="ageRangeFilterButtons" className="btn-group">
-
-            <button 
-            onClick={(e) => handleButtonClick(e, "all")}
-            className={`btn btn-light ${selectedAgeRanges.includes("all") ? 'active' : 'inactive'}`}
-            > 
-            All
-            </button>
-
-            {ageRangeOptions.map(ageRangeOption => (
-                <button
-                    key={ageRangeOption.value}
-                    className={`btn btn-light ${selectedAgeRanges.includes(ageRangeOption.value) ? 'active' : 'inactive'}`}
-                    onClick={(e) => handleButtonClick(e, ageRangeOption.value)}
-                    aria-current="page"
-                >
-                    {ageRangeOption.value}
+            <div id="ageRangeFilterButtons" className="btn-group">
+                <button 
+                    onClick={() => handleButtonClick("all")}
+                    className={`btn btn-light ${selectedAgeRanges.includes("all") ? 'active' : 'inactive'}`}
+                > 
+                    All
                 </button>
-            ))}
 
-
-        </div>
-
+                {ageRangeOptions.map(ageRangeOption => (
+                    <button
+                        key={ageRangeOption.value}
+                        className={`btn btn-light ${selectedAgeRanges.includes(ageRangeOption.value) ? 'active' : 'inactive'}`}
+                        onClick={() => handleButtonClick(ageRangeOption.value)}
+                    >
+                        {ageRangeOption.value}
+                    </button>
+                ))}
+            </div>
         </>
-    )
+    );
 }
 
-export default AgeRangeFilterBar
+export default AgeRangeFilterBar;

@@ -238,12 +238,20 @@ if __name__ == '__main__':
         # add age_ranges to a toy
         zero_three_months.toys.append(toy1)
         zero_three_months.toys.append(toy2)
-        zero_three_months.toys.append(toy3)
-        zero_three_months.toys.append(toy4)
+        zero_three_months.toys.append(toy5)
+        zero_three_months.toys.append(toy6)
         three_six_months.toys.append(toy1)
         three_six_months.toys.append(toy2)
         three_six_months.toys.append(toy3)
         three_six_months.toys.append(toy4)
+        nine_twelve_years.toys.append(toy3)
+        nine_twelve_years.toys.append(toy4)
+        nine_twelve_years.toys.append(toy7)
+        nine_twelve_years.toys.append(toy8)
+        six_eight_years.toys.append(toy5)
+        six_eight_years.toys.append(toy6)
+        six_eight_years.toys.append(toy7)
+        six_eight_years.toys.append(toy8)
 
         # add toys to an age_range
         toy1.age_ranges.append(six_nine_months)

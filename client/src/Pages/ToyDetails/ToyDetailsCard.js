@@ -16,8 +16,6 @@ function ToyDetailsCard( { toy } ) {
   const allReviews = useSelector(state => state.reviews.value)
   const reviews = allReviews.filter(review => review.toy.id == toy.id)
 
-  console.log(toy)
-
     return (
       <>
 
