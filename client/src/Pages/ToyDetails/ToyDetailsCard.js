@@ -62,8 +62,8 @@ function ToyDetailsCard( { toy } ) {
         <ul className="list-group list-group-flush">
         {reviews.map((review) => (
           <li className="list-group-item" key={review.id}>
-            <p><strong>{review.title}</strong></p>
             <p><em>{review.user.firstname} {review.user.lastname}</em></p>
+            <p><strong>{review.title}</strong></p>
             <p>{review.body}</p>
           </li>
         ))}

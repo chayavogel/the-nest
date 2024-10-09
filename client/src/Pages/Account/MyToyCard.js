@@ -9,6 +9,10 @@ function MyToyCard({ toy }) {
         dispatch(deleteToy(toy.id));
     }
 
+    function handleEditClick() {
+        console.log("edit");
+    }
+
     return (
         <div className="card" style={{ width: '18rem' }}>
             <div style={{ width: '100%', height: '200px', overflow: 'hidden' }}>
@@ -20,7 +24,8 @@ function MyToyCard({ toy }) {
                     <Link className="card-link" to={`/toy_details/${toy.id}`}>View Toy</Link>
                     <a href={toy.link} className="card-link" target="_blank" rel="noopener noreferrer">Purchase</a>
                     <br/>
-                    <button onClick={handleDeleteClick} className="btn btn-danger">Delete</button>
+                    <button onClick={handleEditClick} className="btn btn-secondary">Edit</button>
+                    <button onClick={handleDeleteClick} className="btn btn-secondary">Delete</button>
                 </div>
             </div>
         </div>
