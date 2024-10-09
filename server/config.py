@@ -10,13 +10,16 @@ from flask_migrate import Migrate
 from flask_restful import Api
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import MetaData
+from dotenv import load_dotenv
+import os
+load_dotenv()
 
 # Local imports
 
 # Instantiate app, set attributes
 app = Flask(__name__)
 # do i need this? also needs to be an environment variable
-app.secret_key = 'your-secret-key-goes-here'
+app.config['SECRET_KEY'] = os.getenv('SECRET_KEY', 'fallback_secret_key')
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///app.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.json.compact = False
