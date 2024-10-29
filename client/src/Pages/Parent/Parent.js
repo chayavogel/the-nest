@@ -1,7 +1,7 @@
 import { Outlet } from "react-router-dom";
 import NavBar from "../../NavBar";
 
-function Background({ handleClick }) {
+function Parent({ handleClick }) {
   return (
     <>
       <div className="container mt-4">
@@ -19,4 +19,4 @@ function Background({ handleClick }) {
   );
 }
 
-export default Background;
+export default Parent;

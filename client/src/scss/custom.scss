@@ -1,3 +1,4 @@
+//custom colors
 $primary: #a6937d;
 $light: #e8d1c5;
 $secondary: #e8d1c5;
@@ -5,6 +6,7 @@ $body-color: #212529;
 $border-color: #a6937d;
 
 @import "~bootstrap/scss/bootstrap";
+
 @import url("https://fonts.googleapis.com/css2?family=Alex+Brush&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&family=Sedan:ital@0;1&display=swap");
 
