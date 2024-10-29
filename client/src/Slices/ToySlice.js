@@ -45,7 +45,6 @@ export const deleteToy = createAsyncThunk(
   }
 );
 
-
 const toysSlice = createSlice({
   name: 'toys',
   initialState: {

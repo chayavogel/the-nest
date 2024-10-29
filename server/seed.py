@@ -32,7 +32,6 @@ if __name__ == '__main__':
                 email = "one@gmail.com",
                 firstname = "Karen",
                 lastname = "Smith",
-                _password_hash = fake.word(),
                 profile_picture = "https://photoaid.com/en/tools/_next/static/images/before-25ed01ce5b208e9df51888c519ef7949.webp",
                 bio = fake.paragraph(),
                 country = fake.country()
@@ -44,7 +43,6 @@ if __name__ == '__main__':
                 email = "two@gmail.com",
                 firstname = "Annie",
                 lastname = "McCormik",
-                _password_hash = fake.word(),
                 profile_picture = "https://discoverymood.com/wp-content/uploads/2020/04/Mental-Strong-Women-min.jpg",
                 bio = fake.paragraph(),
                 country = fake.country()
@@ -56,7 +54,6 @@ if __name__ == '__main__':
                 email = "three@gmail.com",
                 firstname = "Sarah",
                 lastname = "Cohen",
-                _password_hash = fake.word(),
                 profile_picture = "https://media.istockphoto.com/id/945061408/photo/portrait-of-beautiful-young-businesswoman.jpg?s=612x612&w=0&k=20&c=ncJEKD8tAeFOmH7eRTSI7dpuCqO52OHctk7xMdHFhmM=",
                 bio = fake.paragraph(),
                 country = fake.country()
@@ -68,7 +65,6 @@ if __name__ == '__main__':
                 email = "four@gmail.com",
                 firstname = "Lily",
                 lastname = "Price",
-                _password_hash = fake.word(),
                 profile_picture = "https://www.shutterstock.com/image-photo/fashion-industry-black-woman-designer-600nw-2235667567.jpg",
                 bio = fake.paragraph(),
                 country = fake.country()
@@ -78,7 +74,6 @@ if __name__ == '__main__':
                 email = "five@gmail.com",
                 firstname = "Tracy",
                 lastname = "Parker",
-                _password_hash = fake.word(),
                 profile_picture = "https://image.shutterstock.com/image-photo/portrait-young-smiling-woman-looking-260nw-1865153395.jpg",
                 bio = fake.paragraph(),
                 country = fake.country()

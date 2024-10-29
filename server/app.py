@@ -17,10 +17,10 @@ class CheckSession(Resource):
             if user:
                 return user.to_dict(), 200
             else:
-                return {}, 401
+                return {"error": "no current session"}, 401
         
         else:
-            return {}, 401
+            return {"error": "no current session"}, 401
 
 class Signup(Resource):
     
