@@ -1,12 +1,11 @@
-// index.js
-
 import * as React from "react";
 import ReactDOM from "react-dom/client";
+//Routing components
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+//My defined routes
 import routes from "./routes.js";
-
+//My custom scss
 import './scss/custom.scss';
-
 import store from './store'
 import { Provider } from 'react-redux'
 
