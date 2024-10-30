@@ -40,7 +40,7 @@ function AccountPage() {
                 <p className="text-danger mt-2">{error === "Unexpected token 'P', \"Proxy erro\"... is not valid JSON" ? "Server Down!" : null}</p>
             </div>
 
-            // Selected Section Renders Here
+            {/* Selected section renders here */}
             <div className="my-3">
                 {selectedSection === 'account' && (
                     <EditAccountForm user={currentUser}/>
