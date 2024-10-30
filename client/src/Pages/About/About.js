@@ -1,4 +1,17 @@
-function About( {memberCount} ) {
+import { useEffect} from "react"
+import { useSelector, useDispatch } from 'react-redux'
+import { fetchUsers } from "../../Slices/UsersSlice"
+
+function About() {
+
+    const users = useSelector(state => state.users.users)
+    const dispatch = useDispatch()
+
+    useEffect(() => {
+        dispatch(fetchUsers());
+    }, [dispatch]);
+
+    const memberCount = users.length
 
     return (
         <>
