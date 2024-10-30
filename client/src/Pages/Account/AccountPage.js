@@ -25,17 +25,14 @@ function AccountPage() {
 
     return (
         <>
-            {/* Account Header */}
             <div className="container text-center my-3">
                 <h3>Account</h3>
             </div>
 
-            {/* Account Details */}
             <div className="d-flex justify-content-center my-3">
                 <AccountDetails user={currentUser}/>
             </div>
 
-            {/* Navigation Buttons */}
             <div className="text-center my-3">
                 <button type="button" className="btn btn-primary me-2" onClick={() => handleSectionClick('account')}>Account</button>
                 <button type="button" className="btn btn-primary me-2" onClick={() => handleSectionClick('toyPosts')}>My Posts</button>
@@ -43,7 +40,7 @@ function AccountPage() {
                 <p className="text-danger mt-2">{error === "Unexpected token 'P', \"Proxy erro\"... is not valid JSON" ? "Server Down!" : null}</p>
             </div>
 
-            {/* Selected Section Content */}
+            // Selected Section Renders Here
             <div className="my-3">
                 {selectedSection === 'account' && (
                     <EditAccountForm user={currentUser}/>

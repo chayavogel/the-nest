@@ -19,6 +19,7 @@ function EditAccountForm( { user } ) {
         lastname: yup.string().required("Last name required").max(15),
         email: yup.string().email("Invalid email").required("Email address required"),
         profile_picture: yup.string().url("Invalid image url"),
+        // Currently you cannot edit your password
         // password: yup.string().required("Password required"),
         bio: yup.string().max(250),
         country: yup.string().required("Country required").max(15),
