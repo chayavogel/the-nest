@@ -6,7 +6,7 @@ function Parent({ handleClick }) {
     <>
       <div className="container mt-4">
         <header className="container text-center">
-          <h1 onClick={handleClick}>The Nest</h1>
+          <h1 onClick={handleClick}><strong>The Nest</strong></h1>
           <h2>Where Moms Flock</h2>
           <div>
             <NavBar />

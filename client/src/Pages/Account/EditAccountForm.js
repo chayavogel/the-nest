@@ -52,7 +52,7 @@ function EditAccountForm( { user } ) {
         <>
         <form onSubmit={formik.handleSubmit}>
         <fieldset>
-        <legend>Account</legend>
+        <legend><h3 className="title">Account</h3></legend>
         
         <div className="mb-3">
         <label 

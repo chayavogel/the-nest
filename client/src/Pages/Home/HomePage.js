@@ -3,7 +3,7 @@ function HomePage() {
     return (
         <>
         
-        <h1 className="text-center mb-3">Welcome to The Nest</h1>
+        <h1 className="text-center mb-3 title" >Welcome to The Nest</h1>
             <p className="text-center lead mb-5">
                 A place where every mom finds support, sisterhood, and a sense of belonging.
             </p>

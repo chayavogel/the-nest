@@ -24,15 +24,15 @@ function About() {
             />
 
             <section className="mb-4">
-                <h2>Our Story</h2>
+                <h3 className="title">Our Story</h3>
                 <p>
-                    Hi, I'm Chaya, a mom of two and the creator of The Nest. After I had my first child, I realized how my friends and I were all asking each other the same questions, over and over again. We were all lost about the same things! I also noticed how isolating motherhood can be, and I wanted to create a central place for everything mom-related. And that’s how The Nest was born.
+                    Hi, I'm Chaya, a mom of two and the creator of The Nest. After I had my first child, I realized how isolating and confusing motherhood can be. My friends and I were all asking each other the same questions, over and over again. We were all lost about the same things! I wanted to create a central place for everything mom-related. And that’s how The Nest was born.
                 </p>
             </section>
 
             <section className="mb-4">
-                <h2>What We Offer</h2>
-                <p>At The Nest, we understand that motherhood is a journey filled with joys, challenges, and endless surprises. We created a space where you can find everything you need to nurture your little ones and yourself. Join our beautiful, vibrant community where moms from all walks of life come together to share their experiences, exchange advice, and nurture each other's journey through motherhood.</p>
+                <h3 className="title">What We Offer</h3>
+                <p>At The Nest, we understand that motherhood is a journey filled with joys, challenges, and endless surprises. We created a space where you can find everything you need to nurture your little ones and yourself; a beautiful, vibrant family where moms from all walks of life come together to share their experiences, exchange advice, and nurture each other's journeys.</p>
                 <ul className="list-unstyled mt-3">
                     <li><strong>Toy Recommendations:</strong> Explore a curated selection of toys for every age range, or share your own favorites with our community.</li>
                     <li><strong>Gear Recommendations:</strong> Do I really need a wipes warmer? Find out which gear is worth your money (...and might just save your life). *Coming Soon!*</li>
@@ -42,7 +42,7 @@ function About() {
             </section>
 
             <section className="mb-4">
-                <h2>Join Our Growing Community</h2>
+                <h3 className="title">Join Our Growing Community</h3>
                 <p>Join {memberCount} other moms (and counting!) in The Nest, where we build a community that empowers every mom to navigate the beautiful chaos of motherhood.</p>
                 <p><em>In this big tree, there’s always room for one more nest.</em></p>
             </section>
@@ -50,7 +50,7 @@ function About() {
             <hr className="my-5" />
 
             <section className="mb-4 text-center">
-                <h2>Testimonials</h2>
+                <h3 className="title">Testimonials</h3>
                 <div className="testimonial bg-light p-3 rounded mb-3">
                     <p>“The Nest has been a lifesaver! I've found advice and recommendations that I couldn’t get anywhere else.”</p>
                     <footer>— Sarah, Mom of 2</footer>

@@ -26,7 +26,7 @@ function AccountPage() {
     return (
         <>
             <div className="container text-center my-3">
-                <h3>Account</h3>
+                <h2 className='title'>Account</h2>
             </div>
 
             <div className="d-flex justify-content-center my-3">

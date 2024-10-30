@@ -35,7 +35,7 @@ function ToyPage() {
     return (
         <>
             <div className="container text-center">
-               <h3>Toy Recommendations</h3>
+               <h2 className="title">Toy Recommendations</h2>
                <p>There are so many options, but which toys will your child actually enjoy? View what your friends have tried and tested!</p>
             </div>
 
