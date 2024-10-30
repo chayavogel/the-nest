@@ -17,7 +17,7 @@ function ToyPage() {
 
     let filteredToys = toys || [];
 
-    // Filter toys based on age range selection
+    // I don't understand this code - from AI. Work on it. 
     if (!selectedAgeRanges.includes("all")) {
         filteredToys = filteredToys.filter(toy =>
             toy.age_ranges.some(ageRangeObj =>
@@ -26,7 +26,6 @@ function ToyPage() {
         );
     }
 
-    // Filter toys based on search text
     if (filterText) {
         filteredToys = filteredToys.filter(toy => 
             toy.name.toLowerCase().includes(filterText.toLowerCase())

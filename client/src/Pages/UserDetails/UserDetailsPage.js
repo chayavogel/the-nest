@@ -33,7 +33,7 @@ function UserDetailsPage() {
         <br/>
 
         <div className="container text-center">
-            <h5>{user && user.firstname}'s Toys</h5>
+            <h5>{user && user.firstname}'s Toy Recommendations</h5>
             {user && <UsersToys user={user} />}
         </div>
         </>
