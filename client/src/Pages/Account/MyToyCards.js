@@ -15,8 +15,9 @@ function MyToyCards( {user} ) {
     let filteredToys = toys.filter(toy => toy.user.id === user.id);
 
     return (
-        <>
+        <>  
             <div className="container text-center">
+            <h3 className="title">My Posts</h3>
                 <div className="row justify-content-center">
                     {filteredToys.map(toy => <MyToyCard key={toy.id} toy={toy} />)}
                 </div>

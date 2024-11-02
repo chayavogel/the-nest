@@ -15,7 +15,7 @@ function About() {
     return (
         <div className="container my-5">
 
-            <img src="https://momcommunity.org/wp-content/uploads/2020/05/about-us.png" alt="text where we all belong" className="img-fluid rounded mx-auto d-block mb-4" />
+            <img src="https://momcommunity.org/wp-content/uploads/2020/05/about-us.png" alt="text where we all belong" className="img-fluid rounded mx-auto d-block mb-1" />
             <img 
                 src="/IMG_3277.jpg" 
                 alt="Two kids looking at the water" 

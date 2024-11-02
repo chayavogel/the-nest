@@ -34,7 +34,7 @@ function AccountPage() {
             </div>
 
             <div className="text-center my-3">
-                <button type="button" className="btn btn-primary me-2" onClick={() => handleSectionClick('account')}>Account</button>
+                <button type="button" className="btn btn-primary me-2" onClick={() => handleSectionClick('account')}>Edit Account</button>
                 <button type="button" className="btn btn-primary me-2" onClick={() => handleSectionClick('toyPosts')}>My Posts</button>
                 <button type="button" className="btn btn-danger" onClick={handleDelete}>Delete Account</button>
                 <p className="text-danger mt-2">{error === "Unexpected token 'P', \"Proxy erro\"... is not valid JSON" ? "Server Down!" : null}</p>
